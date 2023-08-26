@@ -3,7 +3,8 @@ module wish-test
 go 1.19
 
 require (
-	github.com/charmbracelet/bubbletea v0.23.2
+	github.com/charmbracelet/bubbles v0.16.1
+	github.com/charmbracelet/bubbletea v0.24.1
 	github.com/charmbracelet/glamour v0.6.0
 	github.com/charmbracelet/lipgloss v0.8.0
 	github.com/charmbracelet/log v0.2.4
@@ -18,7 +19,7 @@ require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/caarlos0/sshmarshal v0.1.0 // indirect
 	github.com/charmbracelet/keygen v0.4.2 // indirect
-	github.com/containerd/console v1.0.3 // indirect
+	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect

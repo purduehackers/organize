@@ -10,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/glamour"
 	"github.com/charmbracelet/lipgloss"
@@ -20,24 +21,40 @@ import (
 	lm "github.com/charmbracelet/wish/logging"
 )
 
+type viewState int
+
 const (
 	host = "localhost"
 	port = 23234
 )
-
-type viewState int
 
 const (
 	fileListView viewState = iota
 	fileContentView
 )
 
+var (
+	headerStyle = func() lipgloss.Style {
+		b := lipgloss.RoundedBorder()
+		b.Right = "├"
+		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Bold(true).Padding(0, 1)
+	}()
+
+	footerStyle = func() lipgloss.Style {
+		b := lipgloss.RoundedBorder()
+		b.Left = "┤"
+		return headerStyle.Copy().Bold(false).BorderStyle(b)
+	}()
+)
+
 type model struct {
 	cursor int
+	ready bool
+	viewport viewport.Model
 	fileNames []string
 	currentView viewState
+	selectedFile string
 	fileContent string
-	scrollPosition int
 	terminalHeight int
 }
 
@@ -117,7 +134,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		fileNames: fileNames,
 		terminalHeight: pty.Window.Height,
 	}
-	return m, []tea.ProgramOption{tea.WithAltScreen()}
+	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
 
 func (m model) Init() tea.Cmd {
@@ -125,31 +142,22 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var (
+		cmd  tea.Cmd
+		cmds []tea.Cmd
+	)
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
 			case "q", "ctrl+c":
 				return m, tea.Quit
 			case "up":
-				if m.currentView == fileListView {
-					if m.cursor > 0 {
-						m.cursor--
-					}
-				} else {
-					if (m.scrollPosition > 0) {
-						m.scrollPosition--
-					}
+				if m.cursor > 0 && m.currentView == fileListView {
+					m.cursor--
 				}
 			case "down":
-				if m.currentView == fileListView {
-					if m.cursor < len(m.fileNames) {
-						m.cursor++
-					}
-				} else {
-					maxScroll := len(strings.Split(m.fileContent, "\n")) - m.terminalHeight 
-					if m.scrollPosition < maxScroll {
-							m.scrollPosition++
-					}
+				if m.cursor < len(m.fileNames) && m.currentView == fileListView {
+					m.cursor++
 				}
 			case "enter":
 				if m.currentView == fileListView {
@@ -159,17 +167,58 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						m.fileContent = "Error reading file"
 					} else {
 						m.fileContent = string(content)
+						m.selectedFile = selectedFile
 					}
+					parsedFileContent, err := glamour.Render(m.fileContent, "dark")
+					if (err != nil) {
+						m.viewport.SetContent("Error parsing markdown")
+					}
+					m.viewport.SetContent(parsedFileContent)
 					m.currentView = fileContentView
 				}
 			case "esc":
 				if m.currentView == fileContentView {
 					m.currentView = fileListView
-					m.scrollPosition = 0
 				}
 		}
+	case tea.WindowSizeMsg:
+		headerHeight := lipgloss.Height(m.headerView())
+		footerHeight := lipgloss.Height(m.footerView())
+		verticalMarginHeight := headerHeight + footerHeight
+
+		if !m.ready {
+			m.viewport = viewport.New(msg.Width, msg.Height-verticalMarginHeight)
+			m.viewport.YPosition = headerHeight
+			m.viewport.HighPerformanceRendering = false
+			m.ready = true
+		} else {
+			m.viewport.Width = msg.Width
+			m.viewport.Height = msg.Height - verticalMarginHeight
+		}
 	}
-	return m, nil
+	m.viewport, cmd = m.viewport.Update(msg)
+	cmds = append(cmds, cmd)
+
+	return m, tea.Batch(cmds...)
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func (m model) headerView() string {
+	title := headerStyle.Render(m.selectedFile)
+	line := strings.Repeat("─", max(0, m.viewport.Width-lipgloss.Width(title)))
+	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
+}
+
+func (m model) footerView() string {
+	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
+	line := strings.Repeat("─", max(0, m.viewport.Width-lipgloss.Width(info)))
+	return lipgloss.JoinHorizontal(lipgloss.Center, line, info)
 }
 
 func (m model) View() string {
@@ -188,22 +237,6 @@ func (m model) View() string {
 		}
 		return fmt.Sprint(s)
 	} else {
-		parsedFileContent, err := glamour.Render(m.fileContent, "dark")
-		if err != nil {
-			return "Error: Unable to parse markdown"
-		}
-
-		lines := strings.Split(parsedFileContent, "\n")
-		start := m.scrollPosition
-		end := start + m.terminalHeight
-
-		if end > len(lines) {
-			end = len(lines)
-		}
-
-		displayLines := lines[start:end]
-		displayContent := strings.Join(displayLines, "\n")
-
-		return fmt.Sprint(displayContent)
+		return fmt.Sprintf("%s\n%s\n%s", m.headerView(), m.viewport.View(), m.footerView())
 	}
 }
