@@ -165,6 +165,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "esc":
 			if m.currentView == fileContentView {
 				m.currentView = fileListView
+				m.scrollPosition = 0
 			}
 		}
 	}
