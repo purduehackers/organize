@@ -172,7 +172,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	if (m.currentView == fileListView) {
 		s, err := glamour.Render("# Files\n", "dark")
-		s += fmt.Sprintf("cursor: %d\n", m.cursor)
 		for i, fileName := range m.fileNames {
 			selected := m.cursor == i + 1
 			styledFileName := renderEntry(fileName, selected)
@@ -190,7 +189,7 @@ func (m model) View() string {
 		if err != nil {
 			return "Error: Unable to parse markdown"
 		}
-		
+
 		lines := strings.Split(parsedFileContent, "\n")
 		start := m.scrollPosition
 		end := start + m.terminalHeight
