@@ -10,12 +10,12 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	glamour "github.com/charmbracelet/glamour"
 	"github.com/charmbracelet/log"
 	"github.com/charmbracelet/ssh"
 	"github.com/charmbracelet/wish"
 	bm "github.com/charmbracelet/wish/bubbletea"
 	lm "github.com/charmbracelet/wish/logging"
-	markdown "github.com/quackduck/go-term-markdown"
 )
 
 const (
@@ -126,5 +126,10 @@ func (m model) View() string {
 	}
 	s += "\n"
 	s += "Press 'q' to quit\n"
-	return fmt.Sprintf(string(markdown.Render(s, m.width, 0)), m.term, m.width, m.height)
+
+	parsedMarkdown, err := glamour.Render(s, "dark")
+	if (err != nil) {
+		return "Error: Unable to parse markdown"
+	}
+	return fmt.Sprintf(parsedMarkdown, m.term, m.width, m.height)
 }
