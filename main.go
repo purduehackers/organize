@@ -24,9 +24,18 @@ const (
 	port = 23234
 )
 
+type viewState int
+
+const (
+	fileListView viewState = iota
+	fileContentView
+)
+
 type model struct {
 	cursor int
 	fileNames []string
+	currentView viewState
+	fileContent string
 }
 
 func readFiles(dir string) ([]string, error) {
@@ -120,24 +129,45 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.cursor < len(m.fileNames) {
 				m.cursor++
 			}
+		case "enter":
+			if m.currentView == fileListView {
+				selectedFile := m.fileNames[m.cursor - 1]
+				content, err := os.ReadFile("data/" + selectedFile)
+				if err != nil {
+					m.fileContent = "Error reading file"
+				} else {
+					m.fileContent = string(content)
+				}
+				m.currentView = fileContentView
+			} else {
+				m.currentView = fileListView
+			}
 		}
 	}
 	return m, nil
 }
 
 func (m model) View() string {
-	s, err := glamour.Render("# Files\n", "dark")
-	s += fmt.Sprintf("cursor: %d\n", m.cursor)
-	for i, fileName := range m.fileNames {
-		selected := m.cursor == i + 1
-		styledFileName := renderEntry(fileName, selected)
-		s += styledFileName + "\n"
+	if (m.currentView == fileListView) {
+		s, err := glamour.Render("# Files\n", "dark")
+		s += fmt.Sprintf("cursor: %d\n", m.cursor)
+		for i, fileName := range m.fileNames {
+			selected := m.cursor == i + 1
+			styledFileName := renderEntry(fileName, selected)
+			s += styledFileName + "\n"
+		}
+		s += "\n"
+		s += "Press 'q' to quit\n"
+	
+		if (err != nil) {
+			return "Error: Unable to parse markdown"
+		}
+		return fmt.Sprint(s)
+	} else {
+		s, err := glamour.Render(m.fileContent, "dark")
+		if err != nil {
+			return "Error: Unable to parse markdown"
+		}
+		return fmt.Sprint(s)
 	}
-	s += "\n"
-	s += "Press 'q' to quit\n"
-
-	if (err != nil) {
-		return "Error: Unable to parse markdown"
-	}
-	return fmt.Sprint(s)
 }
