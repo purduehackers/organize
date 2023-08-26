@@ -122,11 +122,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q", "ctrl+c":
 			return m, tea.Quit
 		case "up":
-			if m.cursor > 0 {
+			if m.cursor > 0 && m.currentView == fileListView {
 				m.cursor--
 			}
 		case "down":
-			if m.cursor < len(m.fileNames) {
+			if m.cursor < len(m.fileNames) && m.currentView == fileListView {
 				m.cursor++
 			}
 		case "enter":
