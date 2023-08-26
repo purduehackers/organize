@@ -161,7 +161,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.fileContent = string(content)
 				}
 				m.currentView = fileContentView
-			} else {
+			}
+		case "esc":
+			if m.currentView == fileContentView {
 				m.currentView = fileListView
 			}
 		}
