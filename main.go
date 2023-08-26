@@ -24,6 +24,11 @@ const (
 	port = 23234
 )
 
+type model struct {
+	cursor int
+	fileNames []string
+}
+
 func readFiles(dir string) ([]string, error) {
 	files, err := os.ReadDir(dir)
 	if err != nil {
@@ -38,9 +43,12 @@ func readFiles(dir string) ([]string, error) {
 	return fileNames, nil
 }
 
-func renderEntry(str string) string {
+func renderEntry(str string, selected bool) string {
 	textStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
 	containerStyle := lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("63"))
+	if (selected) {
+		containerStyle = lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("226")) // or 214
+	}
 
 	textContent := textStyle.Render(str)
 	containerContent := containerStyle.Render(textContent)
@@ -88,14 +96,10 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := model{
+		cursor: 0,
 		fileNames: fileNames,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen()}
-}
-
-// Just a generic tea.Model to demo terminal information of ssh.
-type model struct {
-	fileNames []string
 }
 
 func (m model) Init() tea.Cmd {
@@ -108,6 +112,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "q", "ctrl+c":
 			return m, tea.Quit
+		case "up":
+			if m.cursor > 0 {
+				m.cursor--
+			}
+		case "down":
+			if m.cursor < len(m.fileNames) {
+				m.cursor++
+			}
 		}
 	}
 	return m, nil
@@ -115,8 +127,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	s, err := glamour.Render("# Files\n", "dark")
-	for _, fileName := range m.fileNames {
-		styledFileName := renderEntry(fileName)
+	s += fmt.Sprintf("cursor: %d\n", m.cursor)
+	for i, fileName := range m.fileNames {
+		selected := m.cursor == i + 1
+		styledFileName := renderEntry(fileName, selected)
 		s += styledFileName + "\n"
 	}
 	s += "\n"
