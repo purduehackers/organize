@@ -30,7 +30,7 @@ func readFiles(dir string) ([]string, error) {
 func renderEntry(str string, selected bool) string {
 	textStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
 	containerStyle := lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("63"))
-	if (selected) {
+	if selected {
 		containerStyle = lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("226"))
 	}
 

@@ -48,13 +48,13 @@ var (
 )
 
 type model struct {
-	cursor int
-	ready bool
-	viewport viewport.Model
-	fileNames []string
-	currentView viewState
-	selectedFile string
-	fileContent string
+	cursor         int
+	ready          bool
+	viewport       viewport.Model
+	fileNames      []string
+	currentView    viewState
+	selectedFile   string
+	fileContent    string
 	terminalHeight int
 }
 
@@ -104,7 +104,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := model{
-		fileNames: fileNames,
+		fileNames:      fileNames,
 		terminalHeight: pty.Window.Height,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
@@ -122,37 +122,37 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-			case "q", "ctrl+c":
-				return m, tea.Quit
-			case "up":
-				if m.cursor > 0 && m.currentView == fileListView {
-					m.cursor--
+		case "q", "ctrl+c":
+			return m, tea.Quit
+		case "up":
+			if m.cursor > 0 && m.currentView == fileListView {
+				m.cursor--
+			}
+		case "down":
+			if m.cursor < len(m.fileNames) && m.currentView == fileListView {
+				m.cursor++
+			}
+		case "enter":
+			if m.currentView == fileListView {
+				selectedFile := m.fileNames[m.cursor-1]
+				content, err := os.ReadFile("data/" + selectedFile)
+				if err != nil {
+					m.fileContent = "Error reading file"
+				} else {
+					m.fileContent = string(content)
+					m.selectedFile = selectedFile
 				}
-			case "down":
-				if m.cursor < len(m.fileNames) && m.currentView == fileListView {
-					m.cursor++
+				parsedFileContent, err := glamour.Render(m.fileContent, "dark")
+				if err != nil {
+					m.viewport.SetContent("Error parsing markdown")
 				}
-			case "enter":
-				if m.currentView == fileListView {
-					selectedFile := m.fileNames[m.cursor - 1]
-					content, err := os.ReadFile("data/" + selectedFile)
-					if err != nil {
-						m.fileContent = "Error reading file"
-					} else {
-						m.fileContent = string(content)
-						m.selectedFile = selectedFile
-					}
-					parsedFileContent, err := glamour.Render(m.fileContent, "dark")
-					if (err != nil) {
-						m.viewport.SetContent("Error parsing markdown")
-					}
-					m.viewport.SetContent(parsedFileContent)
-					m.currentView = fileContentView
-				}
-			case "esc":
-				if m.currentView == fileContentView {
-					m.currentView = fileListView
-				}
+				m.viewport.SetContent(parsedFileContent)
+				m.currentView = fileContentView
+			}
+		case "esc":
+			if m.currentView == fileContentView {
+				m.currentView = fileListView
+			}
 		}
 	case tea.WindowSizeMsg:
 		headerHeight := lipgloss.Height(m.headerView())
@@ -188,17 +188,17 @@ func (m model) footerView() string {
 }
 
 func (m model) View() string {
-	if (m.currentView == fileListView) {
+	if m.currentView == fileListView {
 		s, err := glamour.Render("# Files\n", "dark")
 		for i, fileName := range m.fileNames {
-			selected := m.cursor == i + 1
+			selected := m.cursor == i+1
 			styledFileName := renderEntry(fileName, selected)
 			s += styledFileName + "\n"
 		}
 		s += "\n"
 		s += "Press 'q' to quit\n"
-	
-		if (err != nil) {
+
+		if err != nil {
 			return "Error: Unable to parse markdown"
 		}
 		return fmt.Sprint(s)
