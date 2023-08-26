@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -36,6 +37,8 @@ type model struct {
 	fileNames []string
 	currentView viewState
 	fileContent string
+	scrollPosition int
+	terminalHeight int
 }
 
 func readFiles(dir string) ([]string, error) {
@@ -98,6 +101,12 @@ func main() {
 }
 
 func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
+	pty, _, active := s.Pty()
+	if !active {
+		wish.Fatalln(s, "no active terminal, skipping")
+		return nil, nil
+	}
+
 	fileNames, err := readFiles("data")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory")
@@ -105,8 +114,8 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := model{
-		cursor: 0,
 		fileNames: fileNames,
+		terminalHeight: pty.Window.Height,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen()}
 }
@@ -122,12 +131,20 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q", "ctrl+c":
 			return m, tea.Quit
 		case "up":
-			if m.cursor > 0 && m.currentView == fileListView {
-				m.cursor--
+			if m.currentView == fileListView {
+				if m.cursor > 0 {
+					m.cursor--
+				}
+			} else {
+				m.scrollPosition--
 			}
 		case "down":
-			if m.cursor < len(m.fileNames) && m.currentView == fileListView {
-				m.cursor++
+			if m.currentView == fileListView {
+				if m.cursor < len(m.fileNames) {
+					m.cursor++
+				}
+			} else {
+				m.scrollPosition++
 			}
 		case "enter":
 			if m.currentView == fileListView {
@@ -164,7 +181,18 @@ func (m model) View() string {
 		}
 		return fmt.Sprint(s)
 	} else {
-		s, err := glamour.Render(m.fileContent, "dark")
+		lines := strings.Split(m.fileContent, "\n")
+		start := m.scrollPosition
+		end := start + m.terminalHeight
+
+		if end > len(lines) {
+			end = len(lines)
+		}
+
+		displayLines := lines[start:end]
+		displayContent := strings.Join(displayLines, "\n")
+		s, err := glamour.Render(displayContent, "dark")
+
 		if err != nil {
 			return "Error: Unable to parse markdown"
 		}
