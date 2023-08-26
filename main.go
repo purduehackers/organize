@@ -33,29 +33,15 @@ const (
 	fileContentView
 )
 
-var (
-	headerStyle = func() lipgloss.Style {
-		b := lipgloss.RoundedBorder()
-		b.Right = "├"
-		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Bold(true).Padding(0, 1)
-	}()
-
-	footerStyle = func() lipgloss.Style {
-		b := lipgloss.RoundedBorder()
-		b.Left = "┤"
-		return headerStyle.Copy().Bold(false).BorderStyle(b)
-	}()
-)
-
 type model struct {
-	cursor         int
-	ready          bool
-	viewport       viewport.Model
-	fileNames      []string
-	currentView    viewState
-	selectedFile   string
-	fileContent    string
-	terminalHeight int
+	cursor           int
+	ready            bool
+	viewport         viewport.Model
+	fileNames        []string
+	currentView      viewState
+	selectedFileName string
+	fileContent      string
+	terminalHeight   int
 }
 
 func main() {
@@ -140,7 +126,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.fileContent = "Error reading file"
 				} else {
 					m.fileContent = string(content)
-					m.selectedFile = selectedFile
+					m.selectedFileName = selectedFile
 				}
 				parsedFileContent, err := glamour.Render(m.fileContent, "dark")
 				if err != nil {
@@ -175,8 +161,22 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(cmds...)
 }
 
+var (
+	headerStyle = func() lipgloss.Style {
+		b := lipgloss.RoundedBorder()
+		b.Right = "├"
+		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Bold(true).Padding(0, 1)
+	}()
+
+	footerStyle = func() lipgloss.Style {
+		b := lipgloss.RoundedBorder()
+		b.Left = "┤"
+		return headerStyle.Copy().Bold(false).BorderStyle(b)
+	}()
+)
+
 func (m model) headerView() string {
-	title := headerStyle.Render(m.selectedFile)
+	title := headerStyle.Render(m.selectedFileName)
 	line := strings.Repeat("─", Max(0, m.viewport.Width-lipgloss.Width(title)))
 	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
 }
@@ -196,7 +196,6 @@ func (m model) View() string {
 			s += styledFileName + "\n"
 		}
 		s += "\n"
-		s += "Press 'q' to quit\n"
 
 		if err != nil {
 			return "Error: Unable to parse markdown"
