@@ -10,7 +10,8 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
-	glamour "github.com/charmbracelet/glamour"
+	"github.com/charmbracelet/glamour"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/log"
 	"github.com/charmbracelet/ssh"
 	"github.com/charmbracelet/wish"
@@ -35,6 +36,16 @@ func readFiles(dir string) ([]string, error) {
 	}
 
 	return fileNames, nil
+}
+
+func renderEntry(str string) string {
+	textStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
+	containerStyle := lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("63"))
+
+	textContent := textStyle.Render(str)
+	containerContent := containerStyle.Render(textContent)
+
+	return containerContent
 }
 
 func main() {
@@ -70,12 +81,6 @@ func main() {
 }
 
 func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
-	pty, _, active := s.Pty()
-	if !active {
-		wish.Fatalln(s, "no active terminal, skipping")
-		return nil, nil
-	}
-
 	fileNames, err := readFiles("data")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory")
@@ -83,9 +88,6 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := model{
-		term:   pty.Term,
-		width:  pty.Window.Width,
-		height: pty.Window.Height,
 		fileNames: fileNames,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen()}
@@ -93,9 +95,6 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 
 // Just a generic tea.Model to demo terminal information of ssh.
 type model struct {
-	term      string
-	width     int
-	height    int
 	fileNames []string
 }
 
@@ -105,9 +104,6 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case tea.WindowSizeMsg:
-		m.height = msg.Height
-		m.width = msg.Width
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "q", "ctrl+c":
@@ -118,18 +114,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	s := "Your term is %s\n"
-	s += "Your window size is x: %d y: %d\n\n"
-	s += "# Files\n"
+	s, err := glamour.Render("# Files\n", "dark")
 	for _, fileName := range m.fileNames {
-		s += "* " + fileName + "\n"
+		styledFileName := renderEntry(fileName)
+		s += styledFileName + "\n"
 	}
 	s += "\n"
 	s += "Press 'q' to quit\n"
 
-	parsedMarkdown, err := glamour.Render(s, "dark")
 	if (err != nil) {
 		return "Error: Unable to parse markdown"
 	}
-	return fmt.Sprintf(parsedMarkdown, m.term, m.width, m.height)
+	return fmt.Sprint(s)
 }
