@@ -10,6 +10,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/charmbracelet/bubbles/help"
+	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/glamour"
@@ -42,6 +44,18 @@ type model struct {
 	selectedFileName string
 	fileContent      string
 	terminalHeight   int
+	help             help.Model
+	keys             keyMap
+}
+
+func (k keyMap) ShortHelp() []key.Binding {
+	return []key.Binding{k.Up, k.Down, k.Quit, k.Back}
+}
+
+func (k keyMap) FullHelp() [][]key.Binding {
+	return [][]key.Binding{
+		{k.Up, k.Down, k.Quit, k.Back},
+	}
 }
 
 func main() {
@@ -92,6 +106,8 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	m := model{
 		fileNames:      fileNames,
 		terminalHeight: pty.Window.Height,
+		help:           help.New(),
+		keys:           keys,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
@@ -107,18 +123,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	)
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
-		switch msg.String() {
-		case "q", "ctrl+c":
+		switch {
+		case key.Matches(msg, m.keys.Quit):
 			return m, tea.Quit
-		case "up":
+		case key.Matches(msg, m.keys.Up):
 			if m.cursor > 0 && m.currentView == fileListView {
 				m.cursor--
 			}
-		case "down":
+		case key.Matches(msg, m.keys.Down):
 			if m.cursor < len(m.fileNames) && m.currentView == fileListView {
 				m.cursor++
 			}
-		case "enter":
+		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
 				selectedFile := m.fileNames[m.cursor-1]
 				content, err := os.ReadFile("data/" + selectedFile)
@@ -135,12 +151,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.viewport.SetContent(parsedFileContent)
 				m.currentView = fileContentView
 			}
-		case "esc":
+		case key.Matches(msg, m.keys.Back):
 			if m.currentView == fileContentView {
 				m.currentView = fileListView
 			}
 		}
 	case tea.WindowSizeMsg:
+		m.help.Width = msg.Width
+
 		headerHeight := lipgloss.Height(m.headerView())
 		footerHeight := lipgloss.Height(m.footerView())
 		verticalMarginHeight := headerHeight + footerHeight
@@ -165,13 +183,13 @@ var (
 	headerStyle = func() lipgloss.Style {
 		b := lipgloss.RoundedBorder()
 		b.Right = "├"
-		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Bold(true).Padding(0, 1)
+		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Padding(0, 1)
 	}()
 
 	footerStyle = func() lipgloss.Style {
 		b := lipgloss.RoundedBorder()
 		b.Left = "┤"
-		return headerStyle.Copy().Bold(false).BorderStyle(b)
+		return headerStyle.Copy().BorderStyle(b)
 	}()
 )
 
@@ -182,9 +200,13 @@ func (m model) headerView() string {
 }
 
 func (m model) footerView() string {
+	helpView := m.help.View(m.keys)
+
 	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
 	line := strings.Repeat("─", Max(0, m.viewport.Width-lipgloss.Width(info)))
-	return lipgloss.JoinHorizontal(lipgloss.Center, line, info)
+	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
+
+	return helpView + "\n" + footerInfo
 }
 
 func (m model) View() string {
