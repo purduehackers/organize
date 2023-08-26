@@ -128,45 +128,45 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-		case "q", "ctrl+c":
-			return m, tea.Quit
-		case "up":
-			if m.currentView == fileListView {
-				if m.cursor > 0 {
-					m.cursor--
-				}
-			} else {
-				if (m.scrollPosition > 0) {
-					m.scrollPosition--
-				}
-			}
-		case "down":
-			if m.currentView == fileListView {
-				if m.cursor < len(m.fileNames) {
-					m.cursor++
-				}
-			} else {
-				maxScroll := len(strings.Split(m.fileContent, "\n")) - m.terminalHeight 
-        if m.scrollPosition < maxScroll {
-            m.scrollPosition++
-        }
-			}
-		case "enter":
-			if m.currentView == fileListView {
-				selectedFile := m.fileNames[m.cursor - 1]
-				content, err := os.ReadFile("data/" + selectedFile)
-				if err != nil {
-					m.fileContent = "Error reading file"
+			case "q", "ctrl+c":
+				return m, tea.Quit
+			case "up":
+				if m.currentView == fileListView {
+					if m.cursor > 0 {
+						m.cursor--
+					}
 				} else {
-					m.fileContent = string(content)
+					if (m.scrollPosition > 0) {
+						m.scrollPosition--
+					}
 				}
-				m.currentView = fileContentView
-			}
-		case "esc":
-			if m.currentView == fileContentView {
-				m.currentView = fileListView
-				m.scrollPosition = 0
-			}
+			case "down":
+				if m.currentView == fileListView {
+					if m.cursor < len(m.fileNames) {
+						m.cursor++
+					}
+				} else {
+					maxScroll := len(strings.Split(m.fileContent, "\n")) - m.terminalHeight 
+					if m.scrollPosition < maxScroll {
+							m.scrollPosition++
+					}
+				}
+			case "enter":
+				if m.currentView == fileListView {
+					selectedFile := m.fileNames[m.cursor - 1]
+					content, err := os.ReadFile("data/" + selectedFile)
+					if err != nil {
+						m.fileContent = "Error reading file"
+					} else {
+						m.fileContent = string(content)
+					}
+					m.currentView = fileContentView
+				}
+			case "esc":
+				if m.currentView == fileContentView {
+					m.currentView = fileListView
+					m.scrollPosition = 0
+				}
 		}
 	}
 	return m, nil
