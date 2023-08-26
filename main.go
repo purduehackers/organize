@@ -59,7 +59,7 @@ func renderEntry(str string, selected bool) string {
 	textStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
 	containerStyle := lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("63"))
 	if (selected) {
-		containerStyle = lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("226")) // or 214
+		containerStyle = lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("226"))
 	}
 
 	textContent := textStyle.Render(str)
@@ -136,7 +136,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.cursor--
 				}
 			} else {
-				m.scrollPosition--
+				if (m.scrollPosition > 0) {
+					m.scrollPosition--
+				}
 			}
 		case "down":
 			if m.currentView == fileListView {
@@ -144,7 +146,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.cursor++
 				}
 			} else {
-				m.scrollPosition++
+				maxScroll := len(strings.Split(m.fileContent, "\n")) - m.terminalHeight 
+        if m.scrollPosition < maxScroll {
+            m.scrollPosition++
+        }
 			}
 		case "enter":
 			if m.currentView == fileListView {
@@ -181,7 +186,12 @@ func (m model) View() string {
 		}
 		return fmt.Sprint(s)
 	} else {
-		lines := strings.Split(m.fileContent, "\n")
+		parsedFileContent, err := glamour.Render(m.fileContent, "dark")
+		if err != nil {
+			return "Error: Unable to parse markdown"
+		}
+		
+		lines := strings.Split(parsedFileContent, "\n")
 		start := m.scrollPosition
 		end := start + m.terminalHeight
 
@@ -191,11 +201,7 @@ func (m model) View() string {
 
 		displayLines := lines[start:end]
 		displayContent := strings.Join(displayLines, "\n")
-		s, err := glamour.Render(displayContent, "dark")
 
-		if err != nil {
-			return "Error: Unable to parse markdown"
-		}
-		return fmt.Sprint(s)
+		return fmt.Sprint(displayContent)
 	}
 }
