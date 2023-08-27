@@ -133,6 +133,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.cursor < len(m.fileNames) && m.currentView == fileListView {
 				m.cursor++
 			}
+		case key.Matches(msg, m.keys.Top):
+			m.viewport.GotoTop()
 		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
 				selectedFile := m.fileNames[m.cursor-1]

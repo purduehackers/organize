@@ -9,6 +9,7 @@ type keyMap struct {
 	Down  key.Binding
 	Quit  key.Binding
 	Back  key.Binding
+	Top   key.Binding
 	Enter key.Binding
 }
 
@@ -28,6 +29,10 @@ var keys = keyMap{
 	Back: key.NewBinding(
 		key.WithKeys("esc", "left"),
 		key.WithHelp("←/esc", "go back"),
+	),
+	Top: key.NewBinding(
+		key.WithKeys("t"),
+		key.WithHelp("t", "go to top"),
 	),
 	Enter: key.NewBinding(
 		key.WithKeys("enter"),
