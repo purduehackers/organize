@@ -2,8 +2,6 @@ package main
 
 import (
 	"os"
-
-	"github.com/charmbracelet/lipgloss"
 )
 
 func Max(a, b int) int {
@@ -25,17 +23,4 @@ func readFiles(dir string) ([]string, error) {
 	}
 
 	return fileNames, nil
-}
-
-func renderEntry(str string, selected bool) string {
-	textStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("205")).Bold(true)
-	containerStyle := lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("63"))
-	if selected {
-		containerStyle = lipgloss.NewStyle().PaddingLeft(2).PaddingRight(2).BorderStyle(lipgloss.NormalBorder()).BorderForeground(lipgloss.Color("226"))
-	}
-
-	textContent := textStyle.Render(str)
-	containerContent := containerStyle.Render(textContent)
-
-	return containerContent
 }

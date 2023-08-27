@@ -211,17 +211,14 @@ func (m model) footerView() string {
 
 func (m model) View() string {
 	if m.currentView == fileListView {
-		s, err := glamour.Render("# Files\n", "dark")
+		s := JoinPurdueHackers()
 		for i, fileName := range m.fileNames {
 			selected := m.cursor == i+1
-			styledFileName := renderEntry(fileName, selected)
+			styledFileName := PositionListItem(fileName, selected)
 			s += styledFileName + "\n"
 		}
 		s += "\n"
 
-		if err != nil {
-			return "Error: Unable to parse markdown"
-		}
 		return fmt.Sprint(s)
 	} else {
 		return fmt.Sprintf("%s\n%s\n%s", m.headerView(), m.viewport.View(), m.footerView())
