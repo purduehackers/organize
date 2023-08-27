@@ -98,7 +98,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 
 	fileNames, err := readFiles("data")
 	if err != nil {
-		wish.Fatalln(s, "can't read directory")
+		wish.Fatalln(s, "can't read directory: " + err.Error())
 		return nil, nil
 	}
 
