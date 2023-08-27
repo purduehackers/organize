@@ -183,7 +183,7 @@ var (
 	headerStyle = func() lipgloss.Style {
 		b := lipgloss.RoundedBorder()
 		b.Right = "├"
-		return lipgloss.NewStyle().BorderStyle(b).Foreground(lipgloss.Color("#fcd34d")).Padding(0, 1)
+		return lipgloss.NewStyle().BorderStyle(b).BorderForeground(lipgloss.Color("#fcd34d")).Padding(0, 1).Bold(true)
 	}()
 
 	footerStyle = func() lipgloss.Style {
@@ -195,7 +195,7 @@ var (
 
 func (m model) headerView() string {
 	title := headerStyle.Render(m.selectedFileName)
-	line := strings.Repeat("─", Max(0, m.viewport.Width-lipgloss.Width(title)))
+	line := strings.Repeat(lipgloss.NewStyle().Foreground(lipgloss.Color("#fcd34d")).Render("─"), Max(0, m.viewport.Width-lipgloss.Width(title)))
 	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
 }
 
@@ -203,7 +203,7 @@ func (m model) footerView() string {
 	helpView := m.help.View(m.keys)
 
 	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
-	line := strings.Repeat("─", Max(0, m.viewport.Width-lipgloss.Width(info)))
+	line := strings.Repeat(lipgloss.NewStyle().Foreground(lipgloss.Color("#fcd34d")).Render("─"), Max(0, m.viewport.Width-lipgloss.Width(info)))
 	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
 
 	return helpView + "\n" + footerInfo

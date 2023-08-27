@@ -26,8 +26,8 @@ var keys = keyMap{
 		key.WithHelp("q", "quit"),
 	),
 	Back: key.NewBinding(
-		key.WithKeys("esc"),
-		key.WithHelp("esc", "go back"),
+		key.WithKeys("esc", "left"),
+		key.WithHelp("←/esc", "go back"),
 	),
 	Enter: key.NewBinding(
 		key.WithKeys("enter"),
