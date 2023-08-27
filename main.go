@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
 	"time"
 
@@ -179,43 +178,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(cmds...)
 }
 
-var (
-	headerStyle = func() lipgloss.Style {
-		b := lipgloss.RoundedBorder()
-		b.Right = "├"
-		return lipgloss.NewStyle().BorderStyle(b).BorderForeground(lipgloss.Color("#fcd34d")).Padding(0, 1).Bold(true)
-	}()
-
-	footerStyle = func() lipgloss.Style {
-		b := lipgloss.RoundedBorder()
-		b.Left = "┤"
-		return headerStyle.Copy().BorderStyle(b)
-	}()
-)
-
-func (m model) headerView() string {
-	title := headerStyle.Render(m.selectedFileName)
-	line := strings.Repeat(lipgloss.NewStyle().Foreground(lipgloss.Color("#fcd34d")).Render("─"), Max(0, m.viewport.Width-lipgloss.Width(title)))
-	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
-}
-
-func (m model) footerView() string {
-	helpView := lipgloss.PlaceHorizontal(m.viewport.Width, lipgloss.Right, m.help.View(m.keys))
-
-	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
-	line := strings.Repeat(lipgloss.NewStyle().Foreground(lipgloss.Color("#fcd34d")).Render("─"), Max(0, m.viewport.Width-lipgloss.Width(info)))
-	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
-
-	return helpView + "\n" + footerInfo
-}
-
 func (m model) View() string {
 	if m.currentView == fileListView {
-		s := JoinPurdueHackers()
-		s += IntroDescription(m.viewport.Width)
+		s := joinPurdueHackersView()
+		s += introDescriptionView(m.viewport.Width)
 		for i, fileName := range m.fileNames {
 			selected := m.cursor == i+1
-			styledFileName := PositionListItem(fileName, selected)
+			styledFileName := positionListItemView(fileName, selected)
 			s += styledFileName + "\n"
 		}
 		s += "\n"
