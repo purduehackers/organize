@@ -1,24 +1,13 @@
-FROM alpine:latest
+FROM golang:1.17 AS builder
 
-RUN apk update && apk add --update git && rm -rf /var/cache/apk/*
-
+WORKDIR /app
 COPY . .
-# COPY .ssh /.ssh
 
+RUN go build -o /app/bin/organize
 
-# Create directories
-# WORKDIR /soft-serve
-# Expose data volume
-# VOLUME /soft-serve
+FROM debian:buster-slim
+COPY --from=builder /app/bin/organize /organize
 
-# Environment variables
-# ENV SOFT_SERVE_KEY_PATH "/soft-serve/ssh/soft_serve_server_ed25519"
-# ENV SOFT_SERVE_INITIAL_ADMIN_KEY ""
-# ENV SOFT_SERVE_REPO_PATH "/soft-serve/repos"
+EXPOSE 23234
 
-# Expose ports
-# SSH
-EXPOSE 23234/tcp
-
-# Set the default command
-# ENTRYPOINT ["/usr/local/bin/organize"]
+CMD ["/organize"]

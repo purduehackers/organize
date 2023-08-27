@@ -1,8 +1,3 @@
-# fly.toml app configuration file generated for ph-organize on 2023-08-26T22:50:06-04:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = "ph-organize"
 primary_region = "ord"
 kill_signal = "SIGINT"
@@ -19,7 +14,8 @@ kill_timeout = "5s"
   processes = ["app"]
 
   [[services.ports]]
-    port = 22
+    port = "22"
+
   [services.concurrency]
     type = "connections"
     hard_limit = 50
