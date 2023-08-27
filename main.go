@@ -155,6 +155,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Back):
 			if m.currentView == fileContentView {
 				m.currentView = fileListView
+				m.viewport.GotoTop()
 			}
 		}
 	case tea.WindowSizeMsg:
