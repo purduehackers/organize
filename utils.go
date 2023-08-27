@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 )
 
 func Max(a, b int) int {
@@ -12,7 +13,12 @@ func Max(a, b int) int {
 }
 
 func readFiles(dir string) ([]string, error) {
-	files, err := os.ReadDir(dir)
+	wd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+
+	files, err := os.ReadDir(filepath.Join(wd, dir))
 	if err != nil {
 		return nil, err
 	}
