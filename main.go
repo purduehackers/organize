@@ -200,7 +200,7 @@ func (m model) headerView() string {
 }
 
 func (m model) footerView() string {
-	helpView := m.help.View(m.keys)
+	helpView := lipgloss.PlaceHorizontal(m.viewport.Width, lipgloss.Right, m.help.View(m.keys))
 
 	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
 	line := strings.Repeat(lipgloss.NewStyle().Foreground(lipgloss.Color("#fcd34d")).Render("─"), Max(0, m.viewport.Width-lipgloss.Width(info)))
@@ -212,6 +212,7 @@ func (m model) footerView() string {
 func (m model) View() string {
 	if m.currentView == fileListView {
 		s := JoinPurdueHackers()
+		s += IntroDescription(m.viewport.Width)
 		for i, fileName := range m.fileNames {
 			selected := m.cursor == i+1
 			styledFileName := PositionListItem(fileName, selected)

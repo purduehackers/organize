@@ -12,6 +12,10 @@ func JoinPurdueHackers() string {
 	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render("JOIN PURDUE HACKERS"))) + "\n"
 }
 
+func IntroDescription(width int) string {
+	return lipgloss.NewStyle().Width(width).Padding(0, 1).Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team.\n\nGet started at the README.") + "\n\n"
+}
+
 func PositionListItem(str string, selected bool) string {
 	textStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("205")).
