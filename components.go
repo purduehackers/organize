@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -16,7 +17,7 @@ func joinPurdueHackersView() string {
 }
 
 func introDescriptionView(width int) string {
-	return lipgloss.NewStyle().Width(width).Padding(0, 1).Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team.\n\nGet started at the README.") + "\n\n"
+	return lipgloss.NewStyle().Width(int(math.Round(float64(width) * 0.6))).Padding(0, 1).Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team.\n\nGet started at the README.") + "\n\n"
 }
 
 func positionListItemView(str string, selected bool) string {
