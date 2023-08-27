@@ -25,7 +25,7 @@ import (
 type viewState int
 
 const (
-	host = "localhost"
+	host = "0.0.0.0"
 	port = 23234
 )
 
