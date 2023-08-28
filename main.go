@@ -58,9 +58,14 @@ func (k keyMap) FullHelp() [][]key.Binding {
 }
 
 func main() {
+	sshFolderPath := os.Getenv("SSH_FOLDER_PATH")
+	if sshFolderPath == "" {
+		sshFolderPath = ".ssh"
+	}
+
 	s, err := wish.NewServer(
 		wish.WithAddress(fmt.Sprintf("%s:%d", host, port)),
-		wish.WithHostKeyPath(".ssh/term_info_ed25519"),
+		wish.WithHostKeyPath(fmt.Sprintf("%s/term_info_ed25519", sshFolderPath)),
 		wish.WithMiddleware(
 			bm.Middleware(teaHandler),
 			lm.Middleware(),

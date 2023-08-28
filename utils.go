@@ -31,8 +31,8 @@ func readFiles(dir string) ([]string, error) {
 
 func typewrite(s ssh.Session, text string, duration time.Duration) {
 	for _, char := range text {
-			fmt.Fprint(s, string(char))
-			time.Sleep(duration * time.Millisecond)
+		fmt.Fprint(s, string(char))
+		time.Sleep(duration * time.Millisecond)
 	}
 	fmt.Fprint(s, "\n")
 }
