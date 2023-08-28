@@ -20,25 +20,24 @@ func introDescriptionView(width int) string {
 	return lipgloss.NewStyle().Width(int(math.Round(float64(width)*0.6))).Padding(0, 1).Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team.\n\nGet started at the README. Use ↑ and ↓ to navigate.") + "\n\n"
 }
 
-func positionListItemView(fileName string, selected bool, pad bool) string {
-	paddingRight := 3
-	if pad {
-		paddingRight += 2
-	}
+func positionListItemView(str string, selected bool) string {
 	textStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("205")).
 		Bold(true)
 	containerStyle := lipgloss.NewStyle().
-		PaddingLeft(3).
-		PaddingRight(paddingRight).
-		BorderStyle(lipgloss.ThickBorder()).
+		PaddingLeft(2).
+		PaddingRight(2).
+		BorderStyle(lipgloss.NormalBorder()).
 		BorderForeground(lipgloss.Color("63"))
 	if selected {
-		containerStyle = containerStyle.
+		containerStyle = lipgloss.NewStyle().
+			PaddingLeft(2).
+			PaddingRight(2).
+			BorderStyle(lipgloss.NormalBorder()).
 			BorderForeground(lipgloss.Color("226"))
 	}
 
-	textContent := textStyle.Render(fileName)
+	textContent := textStyle.Render(str)
 	containerContent := containerStyle.Render(textContent)
 
 	return containerContent
@@ -81,15 +80,14 @@ func (m model) openPositionsGrid() string {
 		var row string
 
 		selected := m.cursor == i+1
-		pad := m.fileNames[i] == "README.md"
-		styledFileNameFirstRow := positionListItemView(m.fileNames[i], selected, pad)
+		styledFileName1 := positionListItemView(m.fileNames[i], selected)
 
 		if i+1 < len(m.fileNames) {
 			selected = m.cursor == i+2
-			styledFileNameSecondRow := positionListItemView(m.fileNames[i+1], selected, false)
-			row = lipgloss.JoinHorizontal(lipgloss.Top, styledFileNameFirstRow, styledFileNameSecondRow)
+			styledFileName2 := positionListItemView(m.fileNames[i+1], selected)
+			row = lipgloss.JoinHorizontal(lipgloss.Top, styledFileName1, styledFileName2)
 		} else {
-			row = styledFileNameFirstRow
+			row = styledFileName1
 		}
 
 		rows = append(rows, row)
