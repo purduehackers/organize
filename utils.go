@@ -1,7 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"time"
+
+	"github.com/charmbracelet/ssh"
 )
 
 func Max(a, b int) int {
@@ -23,4 +27,12 @@ func readFiles(dir string) ([]string, error) {
 	}
 
 	return fileNames, nil
+}
+
+func typewrite(s ssh.Session, text string, duration time.Duration) {
+	for _, char := range text {
+			fmt.Fprint(s, string(char))
+			time.Sleep(duration * time.Millisecond)
+	}
+	fmt.Fprint(s, "\n")
 }
