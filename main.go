@@ -89,7 +89,20 @@ func main() {
 	}
 }
 
+func typewrite(s ssh.Session, text string, duration time.Duration) {
+	for _, char := range text {
+			fmt.Fprint(s, string(char))
+			time.Sleep(duration * time.Millisecond)
+	}
+	fmt.Fprint(s, "\n")
+}
+
 func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
+	typewrite(s, "★☆✯✰❉✺✸✦☼☼☼✺✸✦ GATHERING ENERGY ☼☼☼✺✸✦★☆✯✰❉✺✸✦", 50)
+	typewrite(s, "☼☼☼☼☼☼☼☼☼☼☼☼☼☼ ENERGY GATHERED ☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼", 20)
+	typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
+	typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
+	time.Sleep(1 * time.Second)
 	pty, _, active := s.Pty()
 	if !active {
 		wish.Fatalln(s, "no active terminal, skipping")
