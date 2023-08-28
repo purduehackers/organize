@@ -98,7 +98,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 
 	fileNames, err := readFiles("data")
 	if err != nil {
-		wish.Fatalln(s, "can't read directory: " + err.Error())
+		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
 	}
 
@@ -185,11 +185,7 @@ func (m model) View() string {
 	if m.currentView == fileListView {
 		s := joinPurdueHackersView()
 		s += introDescriptionView(m.viewport.Width)
-		for i, fileName := range m.fileNames {
-			selected := m.cursor == i+1
-			styledFileName := positionListItemView(fileName, selected)
-			s += styledFileName + "\n"
-		}
+		s += m.openPositionsGrid()
 		s += "\n"
 
 		return fmt.Sprint(s)
