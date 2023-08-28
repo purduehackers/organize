@@ -106,7 +106,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
-	fileNames, err := readFiles("data")
+	fileNames, err := readFiles("directory")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
@@ -148,7 +148,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
 				selectedFile := m.fileNames[m.cursor]
-				content, err := os.ReadFile("data/" + selectedFile)
+				content, err := os.ReadFile("directory/" + selectedFile)
 				if err != nil {
 					m.fileContent = "Error reading file"
 				} else {

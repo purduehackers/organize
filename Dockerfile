@@ -8,7 +8,7 @@ RUN go build -o /app/bin/organize
 
 FROM debian:buster-slim
 COPY --from=builder /app/bin/organize /organize
-COPY --from=builder /app/data /data
+COPY --from=builder /app/directory /directory
 
 ENV SSH_FOLDER_PATH="/app/.ssh"
 
