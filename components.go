@@ -41,7 +41,7 @@ func positionListItemView(str string, selected bool) string {
 		BorderForeground(lipgloss.Color("63"))
 	if selected {
 		containerStyle = containerStyle.
-			BorderForeground(lipgloss.Color("226"))
+			BorderForeground(lipgloss.Color("#fcd34d"))
 	}
 
 	textContent := textStyle.Render(str)
