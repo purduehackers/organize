@@ -14,7 +14,7 @@ func joinPurdueHackersView() string {
 	innerContainerStyle := lipgloss.NewStyle().
 		Padding(0, 1).
 		Background(lipgloss.
-		Color("#fcd34d"))
+			Color("#fcd34d"))
 	textStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("#000000")).

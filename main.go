@@ -130,7 +130,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor--
 			}
 		case key.Matches(msg, m.keys.Down):
-			if m.cursor < len(m.fileNames) - 1 && m.currentView == fileListView {
+			if m.cursor < len(m.fileNames)-1 && m.currentView == fileListView {
 				m.cursor++
 			}
 		case key.Matches(msg, m.keys.Top):
