@@ -62,4 +62,4 @@ After the call, you will receive a response—acceptance or rejection—within a
 
 For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around 💛
 
-This app is [open source](https://github.com/MatthewStanciu/purduehackers-jobs)!
+[Easier to read on GitHub?](https://github.com/purduehackers/organize/blob/main/directory/designer.md)

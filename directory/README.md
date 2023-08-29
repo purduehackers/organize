@@ -34,4 +34,4 @@ If you have any questions about anything in this README, please email mstanciu[a
 
 If you read all the way to the end, please include "mmm i could go for some bibimbap rn" somewhere in your application.
 
-This app is [open source](https://github.com/MatthewStanciu/purduehackers-jobs)!
+This app is [open source](https://github.com/purduehackers/organize)!
