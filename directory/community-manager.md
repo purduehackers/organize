@@ -23,11 +23,14 @@ Today, nobody is responsible for the success of the community, and no existing o
 - Write a new code of conduct, publish it on our website, and surface it to community members.
 - Design a robust onboarding flow for new members that makes them feel welcome, helps them meet new people, and surfaces interesting ongoing conversations.
 
+While your main focus will be the community, you are encouraged to wear many hats & contribute to any other part of Purdue Hackers if you feel inspired to do so.
+
 ### About you
 
 You'll be a great fit for this role if you:
 
 - Are extraordinarly kind, humble, creative, and curious
+- Deeply resonate with Purdue Hackers & feel inspired to make it better
 - Love meeting new people & faciliating connections
 - Regularly use Discord & consider yourself "online"
 - Have experience moderating communities
@@ -42,7 +45,9 @@ Many of these are just suggestions; please apply if you are interested even if y
 
 ### Time commitment
 
-Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. We mostly care that _some_ progress is happening every week. We're all full-time students & are happy to be flexible.
+Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Since this is a higher-level role with many responsibilities, you may need to spend somewhere in the mid (10-20) to high (20-30) range of hours per week in order to be successful.
+
+We mostly care that _some_ progress is happening every week. We're all full-time students & are happy to be flexible.
 
 ## How to apply
 
