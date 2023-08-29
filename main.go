@@ -100,6 +100,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
 	typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
 	time.Sleep(1 * time.Second)
+
 	pty, _, active := s.Pty()
 	if !active {
 		wish.Fatalln(s, "no active terminal, skipping")

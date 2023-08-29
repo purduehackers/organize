@@ -6,7 +6,7 @@ Please read this before applying for any of the positions.
 
 ## What is Purdue Hackers?
 
-Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & motivation to do it regularly. Purdue Hackers aims to help others find their people and set aside time to make things together regularly.
+Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and set aside time to make things together regularly.
 
 Purdue Hackers is made up of 3 core programs:
 
@@ -34,4 +34,4 @@ If you have any questions about anything in this README, please email mstanciu[a
 
 If you read all the way to the end, please include "mmm i could go for some bibimbap rn" somewhere in your application.
 
-This app is open source at https://github.com/MatthewStanciu/purduehackers-jobs.
+This app is [open source](https://github.com/MatthewStanciu/purduehackers-jobs)!

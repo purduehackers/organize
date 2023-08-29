@@ -1,96 +1,71 @@
-# Glamour
+## About Purdue Hackers
 
-<p>
-    <img src="https://stuff.charm.sh/glamour/glamour-github-header.png" width="245" alt="Glamour Title Treatment"><br>
-    <a href="https://github.com/charmbracelet/glamour/releases"><img src="https://img.shields.io/github/release/charmbracelet/glamour.svg" alt="Latest Release"></a>
-    <a href="https://pkg.go.dev/github.com/charmbracelet/glamour?tab=doc"><img src="https://godoc.org/github.com/golang/gddo?status.svg" alt="GoDoc"></a>
-    <a href="https://github.com/charmbracelet/glamour/actions"><img src="https://github.com/charmbracelet/glamour/workflows/build/badge.svg" alt="Build Status"></a>
-    <a href="https://coveralls.io/github/charmbracelet/glamour?branch=master"><img src="https://coveralls.io/repos/github/charmbracelet/glamour/badge.svg?branch=master" alt="Coverage Status"></a>
-    <a href="https://goreportcard.com/report/charmbracelet/glamour"><img src="https://goreportcard.com/badge/charmbracelet/glamour" alt="Go ReportCard"></a>
-</p>
+Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and set aside time to make things together regularly.
 
-Stylesheet-based markdown rendering for your CLI apps.
+Please read the `README.md` for more information if you haven't already.
 
-![Glamour dark style example](https://stuff.charm.sh/glamour/glamour-example.png)
+## About the role
 
-`glamour` lets you render [markdown](https://en.wikipedia.org/wiki/Markdown)
-documents & templates on [ANSI](https://en.wikipedia.org/wiki/ANSI_escape_code)
-compatible terminals. You can create your own stylesheet or simply use one of
-the stylish defaults.
+The Discord community has rapidly become the center point for Purdue Hackers: we announce all our events on there, and people regularly hang out, ship projects, and ask for code help.
 
-## Usage
+Over the last year, our community rocketed from a few hundred members to 1500+ members, and almost no activity to 300 weekly messages & 60 weekly active members. Along with this, a strong community identity has also formed. Today, we are the third-largest server under the "Clubs" section of the Discord student hub, and the ninth-largest overall.
 
-```go
-import "github.com/charmbracelet/glamour"
+We are not prepared for this much rapid growth. New members don't know where to go when they join, & there are no funnels to meeting people & having a great experience. We also don't have a code of conduct, and in the past we've caused confusion by making moderation decisions based on unwritten rules. We're lucky to not have had a major community incident, but it's only a matter of time if we don't change course.
 
-in := `# Hello World
+Today, nobody is responsible for the success of the community, and no existing organizer is excited to take it on. So, we're recruiting someone to help us.
 
-This is a simple example of Markdown rendering with Glamour!
-Check out the [other examples](https://github.com/charmbracelet/glamour/tree/master/examples) too.
+### What you will do
 
-Bye!
-`
+- You will be end-to-end responsible for the community. You will be the primary moderator & final decision-maker.
+- Set the vibe & culture of the community.
+- Regularly chat in the community, get to know others, & make new folks feel welcome.
+- Facilitate asynchronous community events, such as coworking calls.
+- Write a new code of conduct, publish it on our website, and surface it to community members.
+- Design a robust onboarding flow for new members that makes them feel welcome, helps them meet new people, and surfaces interesting ongoing conversations.
 
-out, err := glamour.Render(in, "dark")
-fmt.Print(out)
-```
+### About you
 
-<img src="https://github.com/charmbracelet/glamour/raw/master/examples/helloworld/helloworld.png" width="600" alt="Hello World example">
+You'll be a great fit for this role if you:
 
-### Custom Renderer
+- Are extraordinarly kind, humble, creative, and curious
+- Love meeting new people & faciliating connections
+- Regularly use Discord & consider yourself "online"
+- Have experience moderating communities
 
-```go
-import "github.com/charmbracelet/glamour"
+Bonus points if you:
 
-r, _ := glamour.NewTermRenderer(
-    // detect background color and pick either the default dark or light theme
-    glamour.WithAutoStyle(),
-    // wrap output at specific width (default is 80)
-    glamour.WithWordWrap(40),
-)
+- Are technical or willing to learn
+- Have designed systems before
+- Are weird and/or have felt in the past like you struggled to find your people
 
-out, err := r.Render(in)
-fmt.Print(out)
-```
+Many of these are just suggestions; please apply if you are interested even if you don't feel like you tick every box.
 
-## Styles
+### Time commitment
 
-You can find all available default styles in our [gallery](https://github.com/charmbracelet/glamour/tree/master/styles/gallery).
-Want to create your own style? [Learn how!](https://github.com/charmbracelet/glamour/tree/master/styles)
+Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. We mostly care that _some_ progress is happening every week. We're all full-time students & are happy to be flexible.
 
-There are a few options for using a custom style:
+## How to apply
 
-1. Call `glamour.Render(inputText, "desiredStyle")`
-1. Set the `GLAMOUR_STYLE` environment variable to your desired default style or a file location for a style and call `glamour.RenderWithEnvironmentConfig(inputText)`
-1. Set the `GLAMOUR_STYLE` environment variable and pass `glamour.WithEnvironmentConfig()` to your custom renderer
+Send an email to purduehackers@gmail.com including **"community manager fall 2023"** (case-insensitive) in the subject line with the following:
 
-## Glamourous Projects
+- Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
+- What resonates with you about Purdue Hackers?
+- Why do you want to join the organizing team vs. contribute as a community member?
+- Have you made anything you're proud of lately? Tell us about it and/or share a link to it! (It's ok if not)
+- Anything else you find relevant
 
-Check out these projects, which use `glamour`:
+The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!
 
-- [Glow](https://github.com/charmbracelet/glow), a markdown renderer for
-  the command-line.
-- [GitHub CLI](https://github.com/cli/cli), GitHub’s official command line tool.
-- [GitLab CLI](https://gitlab.com/gitlab-org/cli), GitLab's official command line tool.
-- [Gitea CLI](https://gitea.com/gitea/tea), Gitea's official command line tool.
-- [Meteor](https://github.com/odpf/meteor), an easy-to-use, plugin-driven metadata collection framework.
+### Next steps
 
-## Feedback
+We will reply to confirm we've received it; after that, you will only hear from us if we're interested in following up. There's no deadline on either end, and it's possible this position won't be filled for a while.
 
-We’d love to hear your thoughts on this project. Feel free to drop us a note!
+If we're interested in following up, we'll reach out to schedule a 20-minute Zoom call to get to each other better.
 
-- [Twitter](https://twitter.com/charmcli)
-- [The Fediverse](https://mastodon.social/@charmcli)
-- [Discord](https://charm.sh/chat)
-
-## License
-
-[MIT](https://github.com/charmbracelet/glamour/raw/master/LICENSE)
+After the call, you will receive a response—acceptance or rejection—within a week.
 
 ---
 
-Part of [Charm](https://charm.sh).
+For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around 💛
 
-<a href="https://charm.sh/"><img alt="The Charm logo" src="https://stuff.charm.sh/charm-badge.jpg" width="400"></a>
-
-Charm 热爱开源 • Charm loves open source
+This app is [open source](https://github.com/MatthewStanciu/purduehackers-jobs)!
