@@ -35,10 +35,11 @@ const (
 )
 
 type model struct {
-	cursor           int
+	cursor_v         int
+	cursor_h         int
 	ready            bool
 	viewport         viewport.Model
-	fileNames        []string
+	fileNames        [][]string
 	currentView      viewState
 	selectedFileName string
 	fileContent      string
@@ -48,12 +49,12 @@ type model struct {
 }
 
 func (k keyMap) ShortHelp() []key.Binding {
-	return []key.Binding{k.Up, k.Down, k.Quit, k.Back}
+	return []key.Binding{k.Up, k.Down, k.Left, k.Right, k.Quit, k.Back}
 }
 
 func (k keyMap) FullHelp() [][]key.Binding {
 	return [][]key.Binding{
-		{k.Up, k.Down, k.Quit, k.Back},
+		{k.Up, k.Down, k.Left, k.Right, k.Quit, k.Back},
 	}
 }
 
@@ -113,8 +114,10 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
+	fileLayout := [][]string{fileNames[0:2], fileNames[2:4]}
+
 	m := model{
-		fileNames:      fileNames,
+		fileNames:      fileLayout,
 		terminalHeight: pty.Window.Height,
 		help:           help.New(),
 		keys:           keys,
@@ -137,18 +140,27 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Quit):
 			return m, tea.Quit
 		case key.Matches(msg, m.keys.Up):
-			if m.cursor > 0 && m.currentView == fileListView {
-				m.cursor--
+			if m.cursor_v > 0 && m.currentView == fileListView {
+				m.cursor_v--
 			}
 		case key.Matches(msg, m.keys.Down):
-			if m.cursor < len(m.fileNames)-1 && m.currentView == fileListView {
-				m.cursor++
+			if m.cursor_v < len(m.fileNames)-1 && m.currentView == fileListView {
+				m.cursor_v++
 			}
+		case key.Matches(msg, m.keys.Left):
+			if m.cursor_h > 0 && m.currentView == fileListView {
+				m.cursor_h--
+			}
+		case key.Matches(msg, m.keys.Right):
+			if m.cursor_h < len(m.fileNames)-1 && m.currentView == fileListView {
+				m.cursor_h++
+			}
+
 		case key.Matches(msg, m.keys.Top):
 			m.viewport.GotoTop()
 		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
-				selectedFile := m.fileNames[m.cursor]
+				selectedFile := m.fileNames[m.cursor_v][m.cursor_h]
 				content, err := os.ReadFile("directory/" + selectedFile)
 				if err != nil {
 					m.fileContent = "Error reading file"
