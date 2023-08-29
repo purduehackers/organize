@@ -152,7 +152,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.currentView = fileListView
 				m.viewport.GotoTop()
 			} else {
-				m.cursor_h--
+				if m.cursor_h > 0 {
+					m.cursor_h--
+				}
 			}
 		case key.Matches(msg, m.keys.Right):
 			if m.cursor_h < len(m.fileNames)-1 && m.currentView == fileListView {
