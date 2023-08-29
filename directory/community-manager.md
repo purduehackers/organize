@@ -38,6 +38,7 @@ You'll be a great fit for this role if you:
 Bonus points if you:
 
 - Are technical or willing to learn
+- Are a natural leader & are willing to eventually lead a small team
 - Have designed systems before
 - Are weird and/or have felt in the past like you struggled to find your people
 
@@ -47,7 +48,7 @@ Many of these are just suggestions; please apply if you are interested even if y
 
 Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Since this is a higher-level role with many responsibilities, you may need to spend somewhere in the mid (10-20) to high (20-30) range of hours per week in order to be successful.
 
-We mostly care that _some_ progress is happening every week. We're all full-time students & are happy to be flexible.
+However, we're all full-time students & are happy to be flexible. We mostly care that _some_ progress is happening every week.
 
 ## How to apply
 
@@ -55,6 +56,7 @@ Send an email to purduehackers@gmail.com including **"community manager fall 202
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
+- What resonates with you about this role?
 - Why do you want to join the organizing team vs. contribute as a community member?
 - Have you made anything you're proud of lately? Tell us about it and/or share a link to it! (It's ok if not)
 - Anything else you find relevant
