@@ -49,7 +49,7 @@ type model struct {
 }
 
 func (k keyMap) ShortHelp() []key.Binding {
-	return []key.Binding{k.Up, k.Down, k.Left, k.Right, k.Quit, k.Back}
+	return []key.Binding{k.Up, k.Down, k.Quit, k.Back}
 }
 
 func (k keyMap) FullHelp() [][]key.Binding {
@@ -148,7 +148,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor_v++
 			}
 		case key.Matches(msg, m.keys.Left):
-			if m.cursor_h > 0 && m.currentView == fileListView {
+			if m.currentView == fileContentView {
+				m.currentView = fileListView
+				m.viewport.GotoTop()
+			} else {
 				m.cursor_h--
 			}
 		case key.Matches(msg, m.keys.Right):
