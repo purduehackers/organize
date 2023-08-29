@@ -26,6 +26,7 @@ All of our storytelling thus far has been the work of one person. We're looking 
 - Design & coordinate creative marketing campaigns
 - Send emails to professors, groups, and students to promote upcoming events
 - Coordinate with designers to make sure we have delightful visual communication
+- If technical, build projects like this app to get people excited about Purdue Hackers
 
 This role is a mix of high-level thinking & coordination and low-level marketing tasks. While this will be your main focus, you are encouraged to wear many hats & contribute to any other part of Purdue Hackers if you feel inspired to do so.
 
