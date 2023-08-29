@@ -1,6 +1,6 @@
 ## About Purdue Hackers
 
-Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and set aside time to make things together regularly.
+Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and make things together regularly.
 
 Please read the `README.md` for more information if you haven't already.
 
