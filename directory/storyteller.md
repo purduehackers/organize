@@ -72,7 +72,7 @@ The structure of the email is up to you, but please "be real"—we're students r
 
 We will reply to confirm we've received it; after that, you will only hear from us if we're interested in following up. There's no deadline on either end, and it's possible this position won't be filled for a while.
 
-If we're interested in following up, we'll reach out to schedule a 20-minute Zoom call to get to each other better.
+If we're interested in following up, we'll reach out to schedule a 20-minute Zoom call to get to know each other better.
 
 After the call, you will receive a response—acceptance or rejection—within a week.
 
