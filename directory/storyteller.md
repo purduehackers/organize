@@ -27,7 +27,7 @@ All of our storytelling thus far has been the work of one person. We're looking 
 - Send emails to professors, groups, and students to promote upcoming events
 - Coordinate with designers to make sure we have delightful visual communication
 
-This role is a mix of high-level thinking & coordination and low-level marketing tasks.
+This role is a mix of high-level thinking & coordination and low-level marketing tasks. While this will be your main focus, you are encouraged to wear many hats & contribute to any other part of Purdue Hackers if you feel inspired to do so.
 
 ### About you
 
@@ -45,6 +45,8 @@ Bonus points if you:
 - Are a natural leader & are willing to eventually lead a small team
 - Have designed systems before
 - Are weird and/or have felt in the past like you struggled to find your people
+
+Many of these are just suggestions; please apply if you are interested even if you don't feel like you tick every box.
 
 ### Time commitment
 
