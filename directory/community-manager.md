@@ -1,10 +1,10 @@
-## About Purdue Hackers
+# About Purdue Hackers
 
 Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and make things together regularly.
 
 Please read the `README.md` for more information if you haven't already.
 
-## About the role
+# About the role
 
 The Discord community has rapidly become the center point for Purdue Hackers: we announce all our events on there, and people regularly hang out, ship projects, and ask for code help.
 
@@ -14,7 +14,7 @@ We are not prepared for this much rapid growth. New members don't know where to 
 
 Today, nobody is responsible for the success of the community, and no existing organizer is excited to take it on. So, we're recruiting someone to help us.
 
-### What you will do
+## What you will do
 
 - You will be end-to-end responsible for the community. You will be the primary moderator & final decision-maker.
 - Set the vibe & culture of the community.
@@ -25,7 +25,7 @@ Today, nobody is responsible for the success of the community, and no existing o
 
 While your main focus will be the community, you are encouraged to wear many hats & contribute to any other part of Purdue Hackers if you feel inspired to do so.
 
-### About you
+## About you
 
 You'll be a great fit for this role if you:
 
@@ -44,13 +44,13 @@ Bonus points if you:
 
 Many of these are just suggestions; please apply if you are interested even if you don't feel like you tick every box.
 
-### Time commitment
+# Time commitment
 
 Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Since this is a higher-level role with many responsibilities, you may need to spend somewhere in the mid (10-20) to high (20-30) range of hours per week in order to be successful.
 
 However, we're all full-time students & are happy to be flexible. We mostly care that _some_ progress is happening every week.
 
-## How to apply
+# How to apply
 
 Send an email to purduehackers@gmail.com including **"community manager fall 2023"** (case-insensitive) in the subject line with the following:
 
@@ -63,7 +63,7 @@ Send an email to purduehackers@gmail.com including **"community manager fall 202
 
 The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!
 
-### Next steps
+## Next steps
 
 We will reply to confirm we've received it; after that, you will only hear from us if we're interested in following up. There's no deadline on either end, and it's possible this position won't be filled for a while.
 
