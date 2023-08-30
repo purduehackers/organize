@@ -6,7 +6,7 @@ Please read the `README.md` for more information if you haven't already.
 
 # About the role
 
-The Discord community has rapidly become the center point for Purdue Hackers: we announce all our events on there, and people regularly hang out, ship projects, and ask for code help.
+The Discord community has rapidly become the center of gravity for Purdue Hackers: we announce all our events on there, and people regularly hang out, ship projects, and ask for technical help.
 
 Over the last year, our community rocketed from a few hundred members to 1500+ members, and almost no activity to 300 weekly messages & 60 weekly active members. Along with this, a strong community identity has also formed. Today, we are the third-largest server under the "Clubs" section of the Discord student hub, and the ninth-largest overall.
 
