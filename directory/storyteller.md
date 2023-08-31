@@ -25,6 +25,7 @@ All of our storytelling thus far has been the work of one person. We're looking 
 - Help draft the content of our social media posts to be consistent with our brand
 - Design & coordinate creative marketing campaigns
 - Send emails to professors, groups, and students to promote upcoming events
+- Communicate with industry partners & potential sponsors
 - Coordinate with designers to make sure we have delightful visual communication
 - If technical, build projects like this app to get people excited about Purdue Hackers
 

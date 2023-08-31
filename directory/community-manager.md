@@ -10,7 +10,7 @@ The Discord community has rapidly become the center of gravity for Purdue Hacker
 
 Over the last year, our community rocketed from a few hundred members to 1500+ members, and almost no activity to 300 weekly messages & 60 weekly active members. Along with this, a strong community identity has also formed. Today, we are the third-largest server under the "Clubs" section of the Discord student hub, and the ninth-largest overall.
 
-We are not prepared for this much rapid growth. New members don't know where to go when they join, & there are no funnels to meeting people & having a great experience. We also don't have a code of conduct, and in the past we've caused confusion by making moderation decisions based on unwritten rules. We're lucky to not have had a major community incident, but it's only a matter of time if we don't change course.
+We are not prepared for this much rapid growth. New members don't know where to go when they join, & there are no funnels to meeting people & having a great experience. Our gender balance is terrible. We also don't have a code of conduct, and in the past we've caused confusion by making moderation decisions based on unwritten rules. We're lucky to not have had a major community incident, but it's only a matter of time if we don't change course.
 
 Today, nobody is responsible for the success of the community, and no existing organizer is excited to take it on. So, we're recruiting someone to help us.
 
@@ -21,6 +21,7 @@ Today, nobody is responsible for the success of the community, and no existing o
 - Regularly chat in the community, get to know others, & make new folks feel welcome.
 - Facilitate asynchronous community events, such as coworking calls.
 - Write a new code of conduct, publish it on our website, and surface it to community members.
+- Help organically improve the gender balance of the community.
 - Design a robust onboarding flow for new members that makes them feel welcome, helps them meet new people, and surfaces interesting ongoing conversations.
 
 While your main focus will be the community, you are encouraged to wear many hats & contribute to any other part of Purdue Hackers if you feel inspired to do so.
