@@ -31,7 +31,7 @@ Bonus points if you:
 
 - Have done brand design work in the past and/or are interested in high-level thinking about Purdue Hackers' brand
 
-# Time commitment
+## Time commitment
 
 Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Since this is a more clearly-scoped role, you can probably spend on the lower end (5-10 hours) and still be successful.
 

@@ -45,7 +45,7 @@ Bonus points if you:
 
 Many of these are just suggestions; please apply if you are interested even if you don't feel like you tick every box.
 
-# Time commitment
+## Time commitment
 
 Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Since this is a higher-level role with many responsibilities, you may need to spend somewhere in the mid (10-20) to high (20-30) range of hours per week in order to be successful.
 
