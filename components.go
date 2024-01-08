@@ -43,8 +43,8 @@ func positionListItemView(maxWidth int, title string, description string, select
 			BorderForeground(lipgloss.Color("#fcd34d"))
 	}
 	innerContainerStyle := lipgloss.NewStyle().
-	PaddingLeft(6).
-		PaddingRight(6)
+		PaddingLeft(2).
+		PaddingRight(2)
 
 	titleContent := titleTextStyle.Render(title)
 	descriptionTextContent := lipgloss.NewStyle().Render(description)
