@@ -195,7 +195,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	if m.currentView == fileListView {
-		s := textWithBackgroundView("#fcd34d", "JOIN PURDUE HACKERS")
+		s := textWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS")
 		s += introDescriptionView(m.viewport.Width)
 		s += m.openPositionsGrid()
 		s += "\n"
