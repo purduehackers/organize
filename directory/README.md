@@ -1,4 +1,4 @@
-Start here.
+Read this before applying.
 
 # Read this before applying
 
