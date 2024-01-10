@@ -1,3 +1,5 @@
+Design marketing materials and help build our brand identity.
+
 # About Purdue Hackers
 
 Making creative technical projects is highly rewarding—but academic and social obligations make it hard to find the time & energy to do it regularly. Purdue Hackers aims to help others find their people and make things together regularly.

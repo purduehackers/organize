@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/charmbracelet/ssh"
@@ -15,7 +16,7 @@ func Max(a, b int) int {
 	return b
 }
 
-func readFiles(dir string) ([]string, error) {
+func getFileNames(dir string) ([]string, error) {
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		return nil, err
@@ -27,6 +28,32 @@ func readFiles(dir string) ([]string, error) {
 	}
 
 	return fileNames, nil
+}
+
+func readFirstLines(dir string) ([]string, error) {
+	fileNames, _ := getFileNames(dir)
+	firstLines := make([]string, len(fileNames))
+
+	for i := 0; i < len(fileNames); i++ {
+		// file, err := os.Open("directory/" + fileNames[i])
+		// if err != nil {
+		// 	return nil, err
+		// } else {
+		// 	defer file.Close()
+		// 	scanner := bufio.NewScanner(file)
+		// 	firstLines[i] = scanner.Text()
+		// }
+
+		content, err := os.ReadFile("directory/" + fileNames[i])
+		if err != nil {
+			return nil, err
+		} else {
+			fileContent := string(content)
+			firstLines[i] = strings.Split(fileContent, "\n")[0]
+		}
+	}
+
+	return firstLines, nil
 }
 
 func typewrite(s ssh.Session, text string, duration time.Duration) {

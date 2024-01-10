@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -39,6 +40,7 @@ type model struct {
 	ready            bool
 	viewport         viewport.Model
 	fileNames        []string
+	fileDescriptions []string
 	currentView      viewState
 	selectedFileName string
 	fileContent      string
@@ -107,17 +109,24 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
-	fileNames, err := readFiles("directory")
+	fileNames, err := getFileNames("directory")
+	if err != nil {
+		wish.Fatalln(s, "can't read directory: "+err.Error())
+		return nil, nil
+	}
+
+	fileDescriptions, err := readFirstLines("directory")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
 	}
 
 	m := model{
-		fileNames:      fileNames,
-		terminalHeight: pty.Window.Height,
-		help:           help.New(),
-		keys:           keys,
+		fileNames:        fileNames,
+		fileDescriptions: fileDescriptions,
+		terminalHeight:   pty.Window.Height,
+		help:             help.New(),
+		keys:             keys,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
@@ -154,7 +163,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if err != nil {
 					m.fileContent = "Error reading file"
 				} else {
-					m.fileContent = string(content)
+					fileContent := string(content)
+					m.fileContent = strings.Join(strings.Split(fileContent, "\n")[2:], "\n")
 					m.selectedFileName = selectedFile
 				}
 				parsedFileContent, err := glamour.Render(m.fileContent, "dark")

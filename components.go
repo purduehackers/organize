@@ -109,7 +109,7 @@ func (m model) openPositionsGrid() string {
 	for i := 1; i < len(m.fileNames); i++ {
 		var row string
 		selected := m.cursor == i
-		styledFileName := positionListItemView(maxWidth, m.fileNames[i], "some test description that appears in the selection", selected)
+		styledFileName := positionListItemView(maxWidth, m.fileNames[i], m.fileDescriptions[i], selected)
 		row = lipgloss.JoinHorizontal(lipgloss.Top, row, styledFileName)
 		rows = append(rows, row)
 	}
