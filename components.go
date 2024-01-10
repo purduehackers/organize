@@ -8,19 +8,19 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func joinPurdueHackersView() string {
+func textWithBackgroundView(backgroundColor string, text string) string {
 	outerContainerStyle := lipgloss.NewStyle().
 		Padding(1)
 	innerContainerStyle := lipgloss.NewStyle().
 		Padding(0, 1).
 		Background(lipgloss.
-			Color("#fcd34d"))
+			Color(backgroundColor))
 	textStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("#000000")).
 		Blink(true)
 
-	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render("JOIN PURDUE HACKERS"))) + "\n"
+	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render(text))) + "\n"
 }
 
 func introDescriptionView(width int) string {
@@ -98,7 +98,13 @@ func (m model) openPositionsGrid() string {
 	var rows []string
 	var maxWidth = m.viewport.Width
 
-	for i := 0; i < len(m.fileNames); i++ {
+	readmeSelected := m.cursor == 0
+	styledReadme := positionListItemView(maxWidth, m.fileNames[0], "Start here.", readmeSelected) + "\n\n"
+	openPositions := textWithBackgroundView("63", "OPEN POSITIONS")
+	startHere := styledReadme + openPositions
+	rows = append(rows, startHere)
+
+	for i := 1; i < len(m.fileNames); i++ {
 		var row string
 		selected := m.cursor == i
 		styledFileName := positionListItemView(maxWidth, m.fileNames[i], "some test description that appears in the selection", selected)
