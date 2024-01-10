@@ -8,9 +8,11 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func textWithBackgroundView(backgroundColor string, text string) string {
-	outerContainerStyle := lipgloss.NewStyle().
-		Padding(1)
+func textWithBackgroundView(backgroundColor string, text string, outerPadding bool) string {
+	outerContainerStyle := lipgloss.NewStyle()
+	if outerPadding {
+		outerContainerStyle = outerContainerStyle.Padding(1)
+	}
 	innerContainerStyle := lipgloss.NewStyle().
 		Padding(0, 1).
 		Background(lipgloss.
@@ -99,8 +101,8 @@ func (m model) openPositionsGrid() string {
 	var maxWidth = m.viewport.Width
 
 	readmeSelected := m.cursor == 0
-	styledReadme := positionListItemView(maxWidth, m.fileNames[0], "Start here.", readmeSelected) + "\n\n"
-	openPositions := textWithBackgroundView("63", "OPEN POSITIONS")
+	styledReadme := positionListItemView(maxWidth, m.fileNames[0], "Start here.", readmeSelected) + "\n\n\n"
+	openPositions := textWithBackgroundView("#C48FDC", "OPEN POSITIONS", false)
 	startHere := styledReadme + openPositions
 	rows = append(rows, startHere)
 
