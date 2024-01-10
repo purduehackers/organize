@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/charmbracelet/ssh"
@@ -35,21 +35,14 @@ func readFirstLines(dir string) ([]string, error) {
 	firstLines := make([]string, len(fileNames))
 
 	for i := 0; i < len(fileNames); i++ {
-		// file, err := os.Open("directory/" + fileNames[i])
-		// if err != nil {
-		// 	return nil, err
-		// } else {
-		// 	defer file.Close()
-		// 	scanner := bufio.NewScanner(file)
-		// 	firstLines[i] = scanner.Text()
-		// }
-
-		content, err := os.ReadFile("directory/" + fileNames[i])
+		file, err := os.Open("directory/" + fileNames[i])
 		if err != nil {
 			return nil, err
 		} else {
-			fileContent := string(content)
-			firstLines[i] = strings.Split(fileContent, "\n")[0]
+			defer file.Close()
+			scanner := bufio.NewScanner(file)
+			scanner.Scan()
+			firstLines[i] = scanner.Text()
 		}
 	}
 
