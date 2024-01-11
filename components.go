@@ -39,7 +39,7 @@ func positionListItemView(maxWidth int, title string, description string, select
 	containerStyle := lipgloss.NewStyle().
 		BorderStyle(lipgloss.ThickBorder()).
 		BorderForeground(lipgloss.Color("63")).
-		Width(int(math.Round(float64(maxWidth)*0.6)))
+		Width(int(math.Round(float64(maxWidth) * 0.6)))
 	if selected {
 		containerStyle = containerStyle.
 			BorderForeground(lipgloss.Color("#fcd34d"))

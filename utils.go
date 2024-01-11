@@ -44,7 +44,7 @@ func getPositionMeta(dir string) (*positionMeta, error) {
 		}
 	}
 	positionMetas := positionMeta{
-		fileNames: fileNames,
+		fileNames:        fileNames,
 		fileDescriptions: fileDescriptions,
 	}
 	return &positionMetas, nil
