@@ -16,37 +16,38 @@ func Max(a, b int) int {
 	return b
 }
 
-func getFileNames(dir string) ([]string, error) {
+type positionMeta struct {
+	fileNames        []string
+	fileDescriptions []string
+}
+
+func getPositionMeta(dir string) (*positionMeta, error) {
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		return nil, err
 	}
 
 	fileNames := make([]string, len(files))
+	fileDescriptions := make([]string, len(files))
 	for i := range files {
-		fileNames[i] = files[i].Name()
-	}
+		fileName := files[i].Name()
+		fileNames[i] = fileName
 
-	return fileNames, nil
-}
-
-func readFirstLines(dir string) ([]string, error) {
-	fileNames, _ := getFileNames(dir)
-	firstLines := make([]string, len(fileNames))
-
-	for i := 0; i < len(fileNames); i++ {
-		file, err := os.Open("directory/" + fileNames[i])
+		file, err := os.Open("directory/" + fileName)
 		if err != nil {
 			return nil, err
 		} else {
 			defer file.Close()
 			scanner := bufio.NewScanner(file)
 			scanner.Scan()
-			firstLines[i] = scanner.Text()
+			fileDescriptions[i] = scanner.Text()
 		}
 	}
-
-	return firstLines, nil
+	positionMetas := positionMeta{
+		fileNames: fileNames,
+		fileDescriptions: fileDescriptions,
+	}
+	return &positionMetas, nil
 }
 
 func typewrite(s ssh.Session, text string, duration time.Duration) {

@@ -36,7 +36,7 @@ const (
 )
 
 type model struct {
-	cursor         int
+	cursor           int
 	ready            bool
 	viewport         viewport.Model
 	fileNames        []string
@@ -109,21 +109,15 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
-	fileNames, err := getFileNames("directory")
-	if err != nil {
-		wish.Fatalln(s, "can't read directory: "+err.Error())
-		return nil, nil
-	}
-
-	fileDescriptions, err := readFirstLines("directory")
+	positionMeta, err := getPositionMeta("directory")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
 	}
 
 	m := model{
-		fileNames:        fileNames,
-		fileDescriptions: fileDescriptions,
+		fileNames:        positionMeta.fileNames,
+		fileDescriptions: positionMeta.fileDescriptions,
 		terminalHeight:   pty.Window.Height,
 		help:             help.New(),
 		keys:             keys,
