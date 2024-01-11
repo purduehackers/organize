@@ -8,44 +8,52 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-func joinPurdueHackersView() string {
-	outerContainerStyle := lipgloss.NewStyle().
-		Padding(1)
+func textWithBackgroundView(backgroundColor string, text string, outerPadding bool) string {
+	outerContainerStyle := lipgloss.NewStyle()
+	if outerPadding {
+		outerContainerStyle = outerContainerStyle.Padding(1)
+	}
 	innerContainerStyle := lipgloss.NewStyle().
 		Padding(0, 1).
 		Background(lipgloss.
-			Color("#fcd34d"))
+			Color(backgroundColor))
 	textStyle := lipgloss.NewStyle().
 		Bold(true).
 		Foreground(lipgloss.Color("#000000")).
 		Blink(true)
 
-	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render("JOIN PURDUE HACKERS"))) + "\n"
+	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render(text))) + "\n"
 }
 
 func introDescriptionView(width int) string {
 	return lipgloss.NewStyle().
 		Width(int(math.Round(float64(width)*0.6))).
 		Padding(0, 1).
-		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
+		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Spring 2024 semester.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
 }
 
-func positionListItemView(str string, selected bool) string {
-	textStyle := lipgloss.NewStyle().
+func positionListItemView(maxWidth int, title string, description string, selected bool) string {
+	titleTextStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("205")).
 		Bold(true)
 	containerStyle := lipgloss.NewStyle().
-		PaddingLeft(3).
-		PaddingRight(3).
 		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(lipgloss.Color("63"))
+		BorderForeground(lipgloss.Color("63")).
+		Width(int(math.Round(float64(maxWidth) * 0.6)))
 	if selected {
 		containerStyle = containerStyle.
 			BorderForeground(lipgloss.Color("#fcd34d"))
 	}
+	innerContainerStyle := lipgloss.NewStyle().
+		PaddingLeft(2).
+		PaddingRight(2)
 
-	textContent := textStyle.Render(str)
-	containerContent := containerStyle.Render(textContent)
+	titleContent := titleTextStyle.Render(title)
+	descriptionTextContent := lipgloss.NewStyle().Render(description)
+	textContent := titleContent + "\n" + descriptionTextContent
+
+	innerContainerContent := innerContainerStyle.Render(textContent)
+	containerContent := containerStyle.Render(innerContainerContent)
 
 	return containerContent
 }
@@ -90,15 +98,19 @@ func (m model) footerView() string {
 
 func (m model) openPositionsGrid() string {
 	var rows []string
+	var maxWidth = m.viewport.Width
 
-	for i := 0; i < len(m.fileNames); i += 1 {
+	readmeSelected := m.cursor == 0
+	styledReadme := positionListItemView(maxWidth, m.fileNames[0], m.fileDescriptions[0], readmeSelected) + "\n\n\n"
+	openPositions := textWithBackgroundView("#C48FDC", "OPEN POSITIONS", false)
+	startHere := styledReadme + openPositions
+	rows = append(rows, startHere)
+
+	for i := 1; i < len(m.fileNames); i++ {
 		var row string
-		for j := 0; j < len(m.fileNames[i]); j += 1 {
-
-			selected := m.cursor_v == i && m.cursor_h == j
-			styledFileName := positionListItemView(m.fileNames[i][j], selected)
-			row = lipgloss.JoinHorizontal(lipgloss.Top, row, styledFileName)
-		}
+		selected := m.cursor == i
+		styledFileName := positionListItemView(maxWidth, m.fileNames[i], m.fileDescriptions[i], selected)
+		row = lipgloss.JoinHorizontal(lipgloss.Top, row, styledFileName)
 		rows = append(rows, row)
 	}
 

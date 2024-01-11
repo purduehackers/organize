@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -35,11 +36,11 @@ const (
 )
 
 type model struct {
-	cursor_v         int
-	cursor_h         int
+	cursor           int
 	ready            bool
 	viewport         viewport.Model
-	fileNames        [][]string
+	fileNames        []string
+	fileDescriptions []string
 	currentView      viewState
 	selectedFileName string
 	fileContent      string
@@ -108,19 +109,18 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
-	fileNames, err := readFiles("directory")
+	positionMeta, err := getPositionMeta("directory")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
 	}
 
-	fileLayout := [][]string{fileNames[0:2], fileNames[2:4]}
-
 	m := model{
-		fileNames:      fileLayout,
-		terminalHeight: pty.Window.Height,
-		help:           help.New(),
-		keys:           keys,
+		fileNames:        positionMeta.fileNames,
+		fileDescriptions: positionMeta.fileDescriptions,
+		terminalHeight:   pty.Window.Height,
+		help:             help.New(),
+		keys:             keys,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
@@ -140,37 +140,25 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Quit):
 			return m, tea.Quit
 		case key.Matches(msg, m.keys.Up):
-			if m.cursor_v > 0 && m.currentView == fileListView {
-				m.cursor_v--
+			if m.cursor > 0 && m.currentView == fileListView {
+				m.cursor--
 			}
 		case key.Matches(msg, m.keys.Down):
-			if m.cursor_v < len(m.fileNames)-1 && m.currentView == fileListView {
-				m.cursor_v++
-			}
-		case key.Matches(msg, m.keys.Left):
-			if m.currentView == fileContentView {
-				m.currentView = fileListView
-				m.viewport.GotoTop()
-			} else {
-				if m.cursor_h > 0 {
-					m.cursor_h--
-				}
-			}
-		case key.Matches(msg, m.keys.Right):
-			if m.cursor_h < len(m.fileNames)-1 && m.currentView == fileListView {
-				m.cursor_h++
+			if m.cursor < len(m.fileNames)-1 && m.currentView == fileListView {
+				m.cursor++
 			}
 
 		case key.Matches(msg, m.keys.Top):
 			m.viewport.GotoTop()
 		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
-				selectedFile := m.fileNames[m.cursor_v][m.cursor_h]
+				selectedFile := m.fileNames[m.cursor]
 				content, err := os.ReadFile("directory/" + selectedFile)
 				if err != nil {
 					m.fileContent = "Error reading file"
 				} else {
-					m.fileContent = string(content)
+					fileContent := string(content)
+					m.fileContent = strings.Join(strings.Split(fileContent, "\n")[2:], "\n")
 					m.selectedFileName = selectedFile
 				}
 				parsedFileContent, err := glamour.Render(m.fileContent, "dark")
@@ -179,6 +167,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 				m.viewport.SetContent(parsedFileContent)
 				m.currentView = fileContentView
+				m.viewport.GotoTop()
 			}
 		case key.Matches(msg, m.keys.Back):
 			if m.currentView == fileContentView {
@@ -211,7 +200,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	if m.currentView == fileListView {
-		s := joinPurdueHackersView()
+		s := textWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
 		s += introDescriptionView(m.viewport.Width)
 		s += m.openPositionsGrid()
 		s += "\n"
