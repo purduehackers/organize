@@ -16,7 +16,7 @@ We typically don't recruit for roles other than what we're specifically looking 
 
 That said, last semester we recruited more than one team member who didn't fit any of the roles we had open, and they've all been wonderful additions. So, if you've read all the previous roles and found that none resonate with you, we want to leave the door open for you too.
 
-Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `bread-getter.md`, `head-of-social.md`, and `wildcard.md` another read and make sure you really are not interested in helping us solve those problems.
+Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `bread-getter.md`, `head-of-social.md`, and `storyteller.md` another read and make sure you really are not interested in helping us solve those problems.
 
 # How to apply
 
