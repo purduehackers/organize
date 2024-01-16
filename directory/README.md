@@ -22,13 +22,15 @@ Internally, Purdue Hackers operates similarly to a startup: we have projects wit
 
 ## Organizers vs. community members
 
-Purdue Hackers is highly community-driven; many community members who are not organizers have run workshops, helped organize Hack Night, and helped others in the community. Our table at the Fall 2023 B-Involved fair was manned by two commmunity members. So, if community members are so willing to contribute to Purdue Hackers, why are we recruiting organizers?
+Purdue Hackers is highly community-driven; many community members who are not organizers have run workshops, helped organize Hack Night, and helped others in the community. Our table at the Fall 2023 B-Involved fair was manned by two commmunity members. If you're looking to contribute to Purdue Hackers, you don't need to join as an organizer; you can literally just start helping out with stuff. Build infrastructure, help organize Hack Night, run your own workshops, propose your own events, be a positive presence in the community. There's an endless list of stuff to do, and many non-organizer community members are currently making their way through the list.
 
-Community members never commit to doing work; everything they do is done entirely out of personal excitement and/or the goodness of their hearts. But you can't run an organization entirely on the fuel of community member excitement. At some point, someone needs to be responsible for the success of workshops; someone needs to design marketing material for an upcoming event; someone needs to maintain our software infrastructure; someone needs to secure funding.
+So, if community members already contribute so much to Purdue Hackers, why are we recruiting organizers?
 
-**This is why we have organizers.** As an organizer, you are directly responsible for the success of at least one essential part of Purdue Hackers.
+Community members never commit to doing work; everything they do is done entirely out of personal excitement and/or the goodness of their hearts. The fuel of collective community member excitement can take us far, but we can't run an organization entirely on it. We need to be able to count on there always being someone to ensure the success of workshops, design marketing material for upcoming events, maintain our software infrastructure, and secure funding.
 
-That said, the best organizers are also community members, so we highly encourage you to [hang out in our Discord](https://puhack.horse/discord) and come to [an upcoming event](https://events.purduehackers.com) to get a feel for Purdue Hackers.
+**This is why we have organizers.** As an organizer, you are directly responsible for the success of at least one essential part of Purdue Hackers, and you commit to being there when you're needed. Other than this, organizers are no different than community members.
+
+This means the best organizers are usually active community members, so we highly encourage you to [hang out in our Discord](https://puhack.horse/discord) and come to [an upcoming event](https://events.purduehackers.com) to get a feel for Purdue Hackers.
 
 If you have any questions about anything in this README, please email mstanciu[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around 💛
 
