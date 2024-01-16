@@ -50,16 +50,15 @@ Many of these are just suggestions; please apply if you are interested even if y
 
 ## Time commitment
 
-Up to you. Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Some weeks will be heavier than others, but you can probably send somewhere in the 5-10 hour range and be successful. We're also all full-time students & are happy to be flexible.
+Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. Some weeks will be heavier than others, but you can probably send somewhere in the 5-10 hour range and be successful. We're all full-time students, though, & are happy to be flexible.
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"storyteller spring 2024"** (case-insensitive) in the subject line with the following:
+Send an email to purduehackers@gmail.com including **"storyteller spring 2024"** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
 - What resonates with you about this role?
-- Have you made anything you're proud of lately? Tell us about it and/or share a link to it! (It's ok if not)
 - If you've done professional writing or public comms, please share a link, screenshot, or sample of some of your past work. (It's ok if you haven't)
 - Anything else you find relevant
 
@@ -75,6 +74,6 @@ After the call, you will receive a final follow-up within a week.
 
 ---
 
-For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around 💛
+For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in [our Discord](https://puhack.horse/discord). Hope to see you around 💛
 
 [Easier to read on GitHub?](https://github.com/purduehackers/organize/blob/main/directory/storyteller.md)
