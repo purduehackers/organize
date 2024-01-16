@@ -55,7 +55,7 @@ Send an email to purduehackers@gmail.com including **"head of social spring 2024
 - What resonates with you about Purdue Hackers?
 - What resonates with you about this role?
 - If you've managed a social media account before, please share the account or a screenshot of some of your work.
-- Anything else you find relevant
+- Anything else you find relevant.
 
 The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!
 

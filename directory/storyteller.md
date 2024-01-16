@@ -60,7 +60,7 @@ Send an email to purduehackers@gmail.com including **"storyteller spring 2024"**
 - What resonates with you about Purdue Hackers?
 - What resonates with you about this role?
 - If you've done professional writing or public comms, please share a link, screenshot, or sample of some of your past work. (It's ok if you haven't)
-- Anything else you find relevant
+- Anything else you find relevant.
 
 The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!
 
