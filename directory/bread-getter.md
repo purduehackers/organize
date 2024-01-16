@@ -18,7 +18,7 @@ We are looking for someone to help us close our deficit and double our yearly bu
 
 ## What you will do
 
-- Cold email hundreds of sponsors asking them to sponsor Purdue Hackers
+- Cold email hundreds of companies asking them to sponsor Purdue Hackers
 - Reach out to past sponsors in our network and ask them to sponsor us again
 - Gain warm intros to companies via personal networks
 - Apply for grants and/or funding from the Purdue CS department
