@@ -21,7 +21,6 @@ We're looking for someone to end-to-end own our social media—primarily Instagr
 - Regularly feature student projects on Instagram in the form of Reels
 - Interact with DMs and comments on Instagram
 - Post related or semi-related content—including takeovers, wacky brain dumps, event reminders, and featured projects on Instagram stories every few days
-- Grow our Instagram account to 2,000 followers by the end of the year
 
 This role is similar to other student org social media roles, but different in a few key ways: the "social media person" at many student orgs typically posts only what is given to them by leadership, e.g. event marketing materials—but here, you will also serve as a creative director. You will regularly come up with your own posts, craft the message, and post them without input from others on the team. You will be steering the ship.
 
