@@ -1,14 +1,12 @@
-package main
+package components
 
 import (
-	"fmt"
 	"math"
-	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
 
-func textWithBackgroundView(backgroundColor string, text string, outerPadding bool) string {
+func TextWithBackgroundView(backgroundColor string, text string, outerPadding bool) string {
 	outerContainerStyle := lipgloss.NewStyle()
 	if outerPadding {
 		outerContainerStyle = outerContainerStyle.Padding(1)
@@ -25,14 +23,14 @@ func textWithBackgroundView(backgroundColor string, text string, outerPadding bo
 	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render(text))) + "\n"
 }
 
-func introDescriptionView(width int) string {
+func IntroDescriptionView(width int) string {
 	return lipgloss.NewStyle().
 		Width(int(math.Round(float64(width)*0.6))).
 		Padding(0, 1).
 		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Spring 2024 semester.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
 }
 
-func positionListItemView(maxWidth int, title string, description string, selected bool) string {
+func PositionListItemView(maxWidth int, title string, description string, selected bool) string {
 	titleTextStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("205")).
 		Bold(true)
@@ -59,7 +57,7 @@ func positionListItemView(maxWidth int, title string, description string, select
 }
 
 var (
-	headerStyle = func() lipgloss.Style {
+	HeaderStyle = func() lipgloss.Style {
 		b := lipgloss.RoundedBorder()
 		b.Right = "├"
 		return lipgloss.NewStyle().
@@ -69,47 +67,27 @@ var (
 			Bold(true)
 	}()
 
-	footerStyle = func() lipgloss.Style {
+	FooterStyle = func() lipgloss.Style {
 		b := lipgloss.RoundedBorder()
 		b.Left = "┤"
-		return headerStyle.Copy().BorderStyle(b)
+		return HeaderStyle.Copy().BorderStyle(b)
 	}()
 )
 
-func (m model) headerView() string {
-	title := headerStyle.Render(m.selectedFileName)
-	line := strings.Repeat(lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#fcd34d")).
-		Render("─"), Max(0, m.viewport.Width-lipgloss.Width(title)))
-	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
-}
-
-func (m model) footerView() string {
-	helpView := lipgloss.PlaceHorizontal(m.viewport.Width, lipgloss.Right, m.help.View(m.keys))
-
-	info := footerStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
-	line := strings.Repeat(lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#fcd34d")).
-		Render("─"), Max(0, m.viewport.Width-lipgloss.Width(info)))
-	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
-
-	return helpView + "\n" + footerInfo
-}
-
-func (m model) openPositionsGrid() string {
+func OpenPositionsGrid(width int, fileNames []string, fileDescriptions []string, cursor int) string {
 	var rows []string
-	var maxWidth = m.viewport.Width
+	var maxWidth = width
 
-	readmeSelected := m.cursor == 0
-	styledReadme := positionListItemView(maxWidth, m.fileNames[0], m.fileDescriptions[0], readmeSelected) + "\n\n\n"
-	openPositions := textWithBackgroundView("#C48FDC", "OPEN POSITIONS", false)
+	readmeSelected := cursor == 0
+	styledReadme := PositionListItemView(maxWidth, fileNames[0], fileDescriptions[0], readmeSelected) + "\n\n\n"
+	openPositions := TextWithBackgroundView("#C48FDC", "OPEN POSITIONS", false)
 	startHere := styledReadme + openPositions
 	rows = append(rows, startHere)
 
-	for i := 1; i < len(m.fileNames); i++ {
+	for i := 1; i < len(fileNames); i++ {
 		var row string
-		selected := m.cursor == i
-		styledFileName := positionListItemView(maxWidth, m.fileNames[i], m.fileDescriptions[i], selected)
+		selected := cursor == i
+		styledFileName := PositionListItemView(maxWidth, fileNames[i], fileDescriptions[i], selected)
 		row = lipgloss.JoinHorizontal(lipgloss.Top, row, styledFileName)
 		rows = append(rows, row)
 	}

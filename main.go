@@ -10,6 +10,9 @@ import (
 	"syscall"
 	"time"
 
+	"organize/components"
+	"organize/utils"
+
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/viewport"
@@ -35,7 +38,7 @@ const (
 	fileContentView
 )
 
-type model struct {
+type Model struct {
 	cursor           int
 	ready            bool
 	viewport         viewport.Model
@@ -97,10 +100,10 @@ func main() {
 }
 
 func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
-	typewrite(s, "★☆✯✰❉✺✸✦☼☼☼✺✸✦ GATHERING ENERGY ☼☼☼✺✸✦★☆✯✰❉✺✸✦", 50)
-	typewrite(s, "☼☼☼☼☼☼☼☼☼☼☼☼☼☼ ENERGY GATHERED ☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼", 20)
-	typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
-	typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
+	utils.Typewrite(s, "★☆✯✰❉✺✸✦☼☼☼✺✸✦ GATHERING ENERGY ☼☼☼✺✸✦★☆✯✰❉✺✸✦", 50)
+	utils.Typewrite(s, "☼☼☼☼☼☼☼☼☼☼☼☼☼☼ ENERGY GATHERED ☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼", 20)
+	utils.Typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
+	utils.Typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
 	time.Sleep(1 * time.Second)
 
 	pty, _, active := s.Pty()
@@ -109,15 +112,15 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		return nil, nil
 	}
 
-	positionMeta, err := getPositionMeta("directory")
+	positionMeta, err := utils.GetPositionMeta("directory")
 	if err != nil {
 		wish.Fatalln(s, "can't read directory: "+err.Error())
 		return nil, nil
 	}
 
-	m := model{
-		fileNames:        positionMeta.fileNames,
-		fileDescriptions: positionMeta.fileDescriptions,
+	m := Model{
+		fileNames:        positionMeta.FileNames,
+		fileDescriptions: positionMeta.FileDescriptions,
 		terminalHeight:   pty.Window.Height,
 		help:             help.New(),
 		keys:             keys,
@@ -125,11 +128,11 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
 
-func (m model) Init() tea.Cmd {
+func (m Model) Init() tea.Cmd {
 	return nil
 }
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
 		cmd  tea.Cmd
 		cmds []tea.Cmd
@@ -178,8 +181,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.help.Width = msg.Width
 
-		headerHeight := lipgloss.Height(m.headerView())
-		footerHeight := lipgloss.Height(m.footerView())
+		headerHeight := lipgloss.Height(m.HeaderView())
+		footerHeight := lipgloss.Height(m.FooterView())
 		verticalMarginHeight := headerHeight + footerHeight
 
 		if !m.ready {
@@ -193,20 +196,41 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	}
 	m.viewport, cmd = m.viewport.Update(msg)
+
 	cmds = append(cmds, cmd)
 
 	return m, tea.Batch(cmds...)
 }
 
-func (m model) View() string {
+func (m Model) HeaderView() string {
+	title := components.HeaderStyle.Render(m.selectedFileName)
+	line := strings.Repeat(lipgloss.NewStyle().
+		Foreground(lipgloss.Color("#fcd34d")).
+		Render("─"), utils.Max(0, m.viewport.Width-lipgloss.Width(title)))
+	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
+}
+
+func (m Model) FooterView() string {
+	helpView := lipgloss.PlaceHorizontal(m.viewport.Width, lipgloss.Right, m.help.View(m.keys))
+
+	info := components.FooterStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
+	line := strings.Repeat(lipgloss.NewStyle().
+		Foreground(lipgloss.Color("#fcd34d")).
+		Render("─"), utils.Max(0, m.viewport.Width-lipgloss.Width(info)))
+	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
+
+	return helpView + "\n" + footerInfo
+}
+
+func (m Model) View() string {
 	if m.currentView == fileListView {
-		s := textWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
-		s += introDescriptionView(m.viewport.Width)
-		s += m.openPositionsGrid()
+		s := components.TextWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
+		s += components.IntroDescriptionView(m.viewport.Width)
+		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.cursor)
 		s += "\n"
 
 		return fmt.Sprint(s)
 	} else {
-		return fmt.Sprintf("%s\n%s\n%s", m.headerView(), m.viewport.View(), m.footerView())
+		return fmt.Sprintf("%s\n%s\n%s", m.HeaderView(), m.viewport.View(), m.FooterView())
 	}
 }

@@ -1,4 +1,4 @@
-module wish-test
+module organize
 
 go 1.19
 

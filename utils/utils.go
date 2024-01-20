@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"bufio"
@@ -16,12 +16,12 @@ func Max(a, b int) int {
 	return b
 }
 
-type positionMeta struct {
-	fileNames        []string
-	fileDescriptions []string
+type PositionMeta struct {
+	FileNames        []string
+	FileDescriptions []string
 }
 
-func getPositionMeta(dir string) (*positionMeta, error) {
+func GetPositionMeta(dir string) (*PositionMeta, error) {
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		return nil, err
@@ -43,14 +43,14 @@ func getPositionMeta(dir string) (*positionMeta, error) {
 			fileDescriptions[i] = scanner.Text()
 		}
 	}
-	positionMetas := positionMeta{
-		fileNames:        fileNames,
-		fileDescriptions: fileDescriptions,
+	positionMetas := PositionMeta{
+		FileNames:        fileNames,
+		FileDescriptions: fileDescriptions,
 	}
 	return &positionMetas, nil
 }
 
-func typewrite(s ssh.Session, text string, duration time.Duration) {
+func Typewrite(s ssh.Session, text string, duration time.Duration) {
 	for _, char := range text {
 		fmt.Fprint(s, string(char))
 		time.Sleep(duration * time.Millisecond)
