@@ -34,7 +34,8 @@ const (
 )
 
 const (
-	fileListView viewState = iota
+	homeView viewState = iota
+	fileListView
 	fileContentView
 )
 
@@ -100,11 +101,11 @@ func main() {
 }
 
 func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
-	utils.Typewrite(s, "★☆✯✰❉✺✸✦☼☼☼✺✸✦ GATHERING ENERGY ☼☼☼✺✸✦★☆✯✰❉✺✸✦", 50)
-	utils.Typewrite(s, "☼☼☼☼☼☼☼☼☼☼☼☼☼☼ ENERGY GATHERED ☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼", 20)
-	utils.Typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
-	utils.Typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
-	time.Sleep(1 * time.Second)
+	// utils.Typewrite(s, "★☆✯✰❉✺✸✦☼☼☼✺✸✦ GATHERING ENERGY ☼☼☼✺✸✦★☆✯✰❉✺✸✦", 50)
+	// utils.Typewrite(s, "☼☼☼☼☼☼☼☼☼☼☼☼☼☼ ENERGY GATHERED ☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼", 20)
+	// utils.Typewrite(s, "@@@@@@@@&&&&&& DECODING CONTENT $$!@&((*&*@!))", 50)
+	// utils.Typewrite(s, "⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺ CONTENT DECODED ⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺⏺", 20)
+	// time.Sleep(1 * time.Second)
 
 	pty, _, active := s.Pty()
 	if !active {
@@ -171,11 +172,24 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.viewport.SetContent(parsedFileContent)
 				m.currentView = fileContentView
 				m.viewport.GotoTop()
+			} else if m.currentView == homeView {
+				if m.cursor == 1 {
+					m.currentView = fileListView
+					m.cursor = 0
+				}
 			}
 		case key.Matches(msg, m.keys.Back):
 			if m.currentView == fileContentView {
 				m.currentView = fileListView
 				m.viewport.GotoTop()
+			} else if m.currentView == fileListView {
+				m.currentView = homeView
+			} else if m.currentView == homeView && m.cursor == 1 {
+				m.cursor--;
+			}
+		case key.Matches(msg, m.keys.Right):
+			if m.cursor == 0 && m.currentView == homeView {
+				m.cursor++
 			}
 		}
 	case tea.WindowSizeMsg:
@@ -223,10 +237,15 @@ func (m Model) FooterView() string {
 }
 
 func (m Model) View() string {
-	if m.currentView == fileListView {
+	if m.currentView == homeView {
+		s := components.TextWithBackgroundView("#fcd34d", "PORTAL", true)
+		s += components.IntroDescriptionView(m.viewport.Width, "Welcome to the Purdue Hackers portal 🔮 use this to view events & organizer positions.")
+		s += components.HomeOptions(m.viewport.Width, m.cursor)
+		return fmt.Sprint(s)
+	} else if m.currentView == fileListView {
 		s := components.TextWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
-		s += components.IntroDescriptionView(m.viewport.Width)
-		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.cursor)
+		s += components.IntroDescriptionView(m.viewport.Width, "Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Spring 2024 semester.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.")
+		s += components.OpenPositionsRows(m.viewport.Width, m.fileNames, m.fileDescriptions, m.cursor)
 		s += "\n"
 
 		return fmt.Sprint(s)

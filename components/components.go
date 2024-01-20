@@ -23,11 +23,11 @@ func TextWithBackgroundView(backgroundColor string, text string, outerPadding bo
 	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render(text))) + "\n"
 }
 
-func IntroDescriptionView(width int) string {
+func IntroDescriptionView(width int, text string) string {
 	return lipgloss.NewStyle().
 		Width(int(math.Round(float64(width)*0.6))).
 		Padding(0, 1).
-		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Spring 2024 semester.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
+		Render(text) + "\n\n"
 }
 
 func PositionListItemView(maxWidth int, title string, description string, selected bool) string {
@@ -74,9 +74,17 @@ var (
 	}()
 )
 
-func OpenPositionsGrid(width int, fileNames []string, fileDescriptions []string, cursor int) string {
+func HomeOptions(viewportWidth int, cursor int) string {
+	var maxWidth int = viewportWidth / 2
+	events := PositionListItemView(maxWidth, "Events", "View upcoming & past events", cursor == 0)
+	organizerPositions := PositionListItemView(maxWidth, "Organize", "View open organizer positions", cursor == 1)
+
+	return lipgloss.JoinHorizontal(lipgloss.Left, events, organizerPositions)
+}
+
+func OpenPositionsRows(viewportWidth int, fileNames []string, fileDescriptions []string, cursor int) string {
 	var rows []string
-	var maxWidth = width
+	var maxWidth = viewportWidth
 
 	readmeSelected := cursor == 0
 	styledReadme := PositionListItemView(maxWidth, fileNames[0], fileDescriptions[0], readmeSelected) + "\n\n\n"
