@@ -16,7 +16,7 @@ Purdue Hackers is made up of 3 core programs:
 - **Workshops**: Hour-long sessions that teach something new; attendees leave with a finished project.
 - **Community**: A vibrant, friendly Discord community where people hang out & ship projects. We also announce all our events on there.
 
-Purdue Hackers feels like stepping into a magical, colorful universe, a strange & surreal simulation of the real world. Community members have made a flag and [an alternative time system](https://blog.purduehackers.com/posts/lightning-time), and are working on physical passports for the "citizens" of Purdue Hackers.
+Purdue Hackers feels like stepping into a magical, colorful universe, a strange & surreal simulation of the real world. Community members have made a flag, and [an alternative time system](https://blog.purduehackers.com/posts/lightning-time), and [passports for the "citizens" of Purdue Hackers](https://blog.purduehackers.com/posts/papers-please).
 
 Internally, Purdue Hackers operates similarly to a startup: we have projects with directly responsible individuals, deliverables, & deadlines. We view our work as "shipping" to customers. [Learn more about how Purdue Hackers operates internally & why we think it's so great.](https://blog.purduehackers.com/posts/college-clubs-are-awesome)
 
