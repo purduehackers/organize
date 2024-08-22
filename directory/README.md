@@ -12,7 +12,7 @@ Making creative technical projects is highly rewarding—but academic and social
 
 Purdue Hackers is made up of 3 core programs:
 
-- **Hack Night**: Our flagship program. A mini-hackathon every Friday night at the Bechtel Center.
+- **Hack Night**: Our flagship program. A hacker festival every Friday night at the Bechtel Center.
 - **Workshops**: Hour-long sessions that teach something new; attendees leave with a finished project.
 - **Community**: A vibrant, friendly Discord community where people hang out & ship projects. We also announce all our events on there.
 
@@ -22,7 +22,7 @@ Internally, Purdue Hackers operates similarly to a startup: we have projects wit
 
 ## Organizers vs. community members
 
-Purdue Hackers is highly community-driven; many community members who are not organizers have run workshops, helped organize Hack Night, and helped others in the community. Our table at the Fall 2023 B-Involved fair was manned by two commmunity members. If you're looking to contribute to Purdue Hackers, you don't need to join as an organizer; you can literally just start helping out with stuff. Build infrastructure, help organize Hack Night, run your own workshops, propose your own events, be a positive presence in the community. There's an endless list of stuff to do, and many non-organizer community members are currently making their way through the list.
+Purdue Hackers is highly community-driven; many community members who are not organizers have run workshops, helped organize Hack Night, and helped others in the community. Our table at the Fall 2023 and Fall 2024 B-Involved fair was manned by two commmunity members. If you're looking to contribute to Purdue Hackers, you don't need to join as an organizer; you can literally just start helping out with stuff. Build infrastructure, help organize Hack Night, run your own workshops, propose your own events, be a positive presence in the community. There's an endless list of stuff to do, and many non-organizer community members are currently making their way through the list.
 
 So, if community members already contribute so much to Purdue Hackers, why are we recruiting organizers?
 
@@ -36,6 +36,6 @@ If you have any questions about anything in this README, please email mstanciu[a
 
 ---
 
-If you read all the way to the end, please include "mmm i could go for some bibimbap rn" somewhere in your application.
+If you read all the way to the end, please include "i'm feeling awestruck" somewhere in your application.
 
 This app is [open source](https://github.com/purduehackers/organize)!
