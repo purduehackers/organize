@@ -8,17 +8,17 @@ Please read the `README.md` for more information if you haven't already.
 
 # About the role
 
-Purdue Hackers has gone through many eras over our 10-year lifespan; more recently, it has been radically transformed over the last year. Our community has exploded—it's now the second-largest server under "Clubs" in the Purdue Discord student hub and the sixth-largest overall. A year ago, the community had almost no activity; today, it has 700 weekly messages & 160 weekly active members, & a strong community identity.
+Purdue Hackers has gone through many eras over our 11-year lifespan, and has been radically transformed over the last two years. Our community has exploded—it's now the second-largest server under "Clubs" in the Purdue Discord student hub and the fifth-largest overall. Two years ago, the community had almost no activity; today, it has 2,000 weekly messages & 160 weekly active members, & a strong community identity.
 
 Hack Night is a symbol of our transformation: every Friday, 80 people show up to the Bechtel Center and hack on cool projects together—including an LED sign, Conway's Game of Life over SSH, [an alternative time system](https://blog.purduehackers.com/posts/lightning-time), a camera on a motor that tracks objects, and many others.
 
-A radical transformation of this kind doesn't happen on its own; it was the result of a year of coordinated effort among community members & organizers to build the space we wish we had. Storytelling is a major piece of this puzzle.
+A radical transformation of this kind doesn't happen on its own; it was the result of years of coordinated effort among community members & organizers to build the space we wish we had. Storytelling is a major piece of this puzzle.
 
 Storytelling is how we communicate to the universe what Purdue Hackers is and does. Good storytelling inspires others & gets them excited to take action—for students, that's spending time in the community, regularly coming to events, spreading the word to their friends, and contributing to the Purdue Hackers project; for University-affiliated adults, it's supporting us via promotion & connections; for tech companies, it's supporting us financially. Successful storytelling brings the world into our corner, helping us grow in whatever way they can, creating a positive feedback loop of greatness.
 
 Storytelling passes through everything we do. It begins with high-level vibe-setting & world-building. This turns into a brand, from which we extract a core message that we repeat over and over. This message appears in different forms across our website, marketing materials, and projects. [Our website](https://purduehackers.com) is storytelling. [Our blog](https://blog.purduehackers.com) is storytelling. Our callout is storytelling. The Hack Night badges are storytelling. The tone of our `#announcements` is storytelling. This app is storytelling.
 
-All of our storytelling thus far has been the work of one person. We're looking for a new organizer to help expand our storytelling efforts.
+Nearly all of our storytelling thus far has been the work of one person. We're looking for a new organizer to help expand our storytelling efforts.
 
 ## What you will do
 
@@ -54,7 +54,7 @@ Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. So
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"storyteller spring 2024"** (not case-sensitive) in the subject line with the following:
+Send an email to purduehackers@gmail.com including **"storyteller fall 2024"** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?

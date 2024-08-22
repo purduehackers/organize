@@ -8,19 +8,19 @@ Please read the `README.md` for more information if you haven't already.
 
 # Wildcard
 
-For the Spring 2024 semester, Purdue Hackers is looking for a Bread Getter, Head of Social, and Storyteller. We're looking for these positions because we urgently need these sets of skills on our team, but everyone on our team either doesn't have these skills or is swamped with their existing work.
+For the Fall 2024 semester, Purdue Hackers is looking for a Bread Getter, Head of Social, and Storyteller. We're looking for these positions because we urgently need these sets of skills on our team, but everyone on our team either doesn't have these skills or is swamped with their existing work.
 
-We're extremely cautious every time we add a new member to the team. As of writing in January 2024, Purdue Hackers has 17 organizers—that's a very large team, whose schedules for our weekly All Hands become more difficult to coordinate & who become more difficult to manage the larger the team becomes. Larger teams also run the risk of lowering everyone's ambitions, because they make folks feel like there's always someone else to do something, discourage them from working outside their specific domain, and make it harder for the spotlight to be on everyone doing their best work.
+We're extremely cautious with adding a new member to the team. As of writing in August 2024, Purdue Hackers has 14 organizers—that's a very large team, whose schedules for our weekly All Hands become more difficult to coordinate & who become more difficult to manage the larger the team becomes. Larger teams also run the risk of lowering everyone's ambitions, because they make folks feel like there's always someone else to do something, discourage them from working outside their specific domain, and make it harder for the spotlight to be on everyone doing their best work.
 
-We typically don't recruit for roles other than what we're specifically looking for because we want to be very cautious of team size, and we want every new team member to start with a clearly-defined role that fills an immediate need.
+We typically don't recruit for roles other than what we're specifically looking for because we want to be very cautious of team size and we want every new team member to start with a clearly-defined role that fills an immediate need.
 
-That said, last semester we recruited more than one team member who didn't fit any of the roles we had open, and they've all been wonderful additions. So, if you've read all the previous roles and found that none resonate with you, we want to leave the door open for you too.
+That said, we've previously recruited team members who didn't fit any of the roles we had open, and they've all been wonderful additions. So, if you've read all the previous roles and found that none resonate with you, we want to leave the door open for you too.
 
-Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `bread-getter.md`, `head-of-social.md`, and `storyteller.md` another read and make sure you really are not interested in helping us solve those problems.
+Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `bread-getter.md`, `head-of-social.md`, and `storyteller.md` another read and make sure you really feel none of them are a good fit for you.
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"wildcard spring 2024"** (not case-sensitive) in the subject line with the following:
+Send an email to purduehackers@gmail.com including **"wildcard fall 2024"** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
