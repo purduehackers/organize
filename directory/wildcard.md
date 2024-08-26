@@ -18,7 +18,7 @@ That said, we've previously recruited team members who didn't fit any of the rol
 
 Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `designer.md` and `storyteller.md` another read and make sure you really feel none of them are a good fit for you.
 
-That said, if you don’t hear back from us about this position, you won’t burn any bridges—you will still be strongly encouraged to come to Hack Night and help out wherever you see fit. You can also apply for other positions. So don’t let the above warning scare you off!
+However, if you don’t hear back from us about this position, you won’t burn any bridges—you will still be strongly encouraged to come to Hack Night and help out wherever you see fit. You can also apply for other positions. So don’t let the above warning scare you off!
 
 # How to apply
 

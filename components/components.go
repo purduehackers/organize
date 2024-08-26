@@ -27,7 +27,7 @@ func IntroDescriptionView(width int) string {
 	return lipgloss.NewStyle().
 		Width(int(math.Round(float64(width)*0.6))).
 		Padding(0, 1).
-		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Spring 2024 semester.\n\nThe following positions are open as of April 2024.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
+		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Fall 2024 semester.\n\nThe following positions are open as of August 2024.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
 }
 
 func PositionListItemView(maxWidth int, title string, description string, selected bool) string {
