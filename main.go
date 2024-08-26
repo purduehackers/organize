@@ -39,17 +39,18 @@ const (
 )
 
 type Model struct {
-	cursor           int
-	ready            bool
-	viewport         viewport.Model
-	fileNames        []string
-	fileDescriptions []string
-	currentView      viewState
-	selectedFileName string
-	fileContent      string
-	terminalHeight   int
-	help             help.Model
-	keys             keyMap
+	cursor                 int
+	ready                  bool
+	viewport               viewport.Model
+	fileNames              []string
+	fileDescriptions       []string
+	fileOpenPositionCounts []string
+	currentView            viewState
+	selectedFileName       string
+	fileContent            string
+	terminalHeight         int
+	help                   help.Model
+	keys                   keyMap
 }
 
 func (k keyMap) ShortHelp() []key.Binding {
@@ -119,11 +120,12 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := Model{
-		fileNames:        positionMeta.FileNames,
-		fileDescriptions: positionMeta.FileDescriptions,
-		terminalHeight:   pty.Window.Height,
-		help:             help.New(),
-		keys:             keys,
+		fileNames:              positionMeta.FileNames,
+		fileDescriptions:       positionMeta.FileDescriptions,
+		fileOpenPositionCounts: positionMeta.FileOpenPositionCounts,
+		terminalHeight:         pty.Window.Height,
+		help:                   help.New(),
+		keys:                   keys,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
@@ -226,7 +228,7 @@ func (m Model) View() string {
 	if m.currentView == fileListView {
 		s := components.TextWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
 		s += components.IntroDescriptionView(m.viewport.Width)
-		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.cursor)
+		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.fileOpenPositionCounts, m.cursor)
 		s += "\n"
 
 		return fmt.Sprint(s)
