@@ -41,7 +41,7 @@ Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. So
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"designer fall 2024”** (case-insensitive) in the subject line with the following:
+Send an email to purduehackers@gmail.com including **"designer fall 2024”** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?

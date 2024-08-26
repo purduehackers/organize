@@ -8,15 +8,17 @@ Please read the `README.md` for more information if you haven't already.
 
 # Wildcard
 
-For the Fall 2024 semester, Purdue Hackers is looking for a Bread Getter, Head of Social, and Storyteller. We're looking for these positions because we urgently need these sets of skills on our team, but everyone on our team either doesn't have these skills or is swamped with their existing work.
+For the Fall 2024 semester, Purdue Hackers is looking for a Storyteller and three Designers. We're looking for these positions because we urgently need these sets of skills on our team, but everyone on our team either doesn't have these skills or is swamped with their existing work.
 
-We're extremely cautious with adding a new member to the team. As of writing in August 2024, Purdue Hackers has 14 organizers—that's a very large team, whose schedules for our weekly All Hands become more difficult to coordinate & who become more difficult to manage the larger the team becomes. Larger teams also run the risk of lowering everyone's ambitions, because they make folks feel like there's always someone else to do something, discourage them from working outside their specific domain, and make it harder for the spotlight to be on everyone doing their best work.
+We're extremely cautious with adding a new member to the team. As of writing in August 2024, Purdue Hackers has 11 organizers—that's a large team, whose schedules for our weekly All Hands become more difficult to coordinate & who become more difficult to manage the larger the team becomes. Larger teams also run the risk of lowering everyone's ambitions, because they make folks feel like there's always someone else to do something, discourage them from working outside their specific domain, and make it harder for the spotlight to be on everyone doing their best work.
 
 We typically don't recruit for roles other than what we're specifically looking for because we want to be very cautious of team size and we want every new team member to start with a clearly-defined role that fills an immediate need.
 
 That said, we've previously recruited team members who didn't fit any of the roles we had open, and they've all been wonderful additions. So, if you've read all the previous roles and found that none resonate with you, we want to leave the door open for you too.
 
-Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `bread-getter.md`, `head-of-social.md`, and `storyteller.md` another read and make sure you really feel none of them are a good fit for you.
+Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `designer.md` and `storyteller.md` another read and make sure you really feel none of them are a good fit for you.
+
+That said, if you don’t hear back from us about this position, you won’t burn any bridges—you will still be strongly encouraged to come to Hack Night and help out wherever you see fit. You can also apply for other positions. So don’t let the above warning scare you off!
 
 # How to apply
 
