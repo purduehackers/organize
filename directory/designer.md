@@ -1,4 +1,5 @@
 Design marketing materials & badges, and help build our brand identity.
+Count: 3
 
 # About Purdue Hackers
 
@@ -48,7 +49,7 @@ Send an email to purduehackers@gmail.com including **"designer fall 2024”** (n
 - What resonates with you about this role?
 - If you have a portfolio of past work, please share it.
 - Between badges, marketing materials, and brand designing, which excite(s) you the most?
-	- This won’t affect your application, just curious what people gravitate more toward
+  - This won’t affect your application, just curious what people gravitate more toward
 - Anything else you find relevant
 
 The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!

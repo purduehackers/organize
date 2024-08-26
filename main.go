@@ -44,6 +44,7 @@ type Model struct {
 	viewport         viewport.Model
 	fileNames        []string
 	fileDescriptions []string
+	fileOpenPositionCounts       []string
 	currentView      viewState
 	selectedFileName string
 	fileContent      string
@@ -121,6 +122,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	m := Model{
 		fileNames:        positionMeta.FileNames,
 		fileDescriptions: positionMeta.FileDescriptions,
+		fileOpenPositionCounts: positionMeta.FileOpenPositionCounts,
 		terminalHeight:   pty.Window.Height,
 		help:             help.New(),
 		keys:             keys,
@@ -226,7 +228,7 @@ func (m Model) View() string {
 	if m.currentView == fileListView {
 		s := components.TextWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
 		s += components.IntroDescriptionView(m.viewport.Width)
-		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.cursor)
+		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.fileOpenPositionCounts, m.cursor)
 		s += "\n"
 
 		return fmt.Sprint(s)

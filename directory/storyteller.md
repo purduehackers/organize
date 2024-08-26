@@ -1,4 +1,5 @@
 Tell the story of Purdue Hackers to members, faculty, and sponsors.
+Count: 1
 
 # About Purdue Hackers
 
