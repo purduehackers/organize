@@ -18,8 +18,8 @@ func Max(a, b int) int {
 }
 
 type PositionMeta struct {
-	FileNames        []string
-	FileDescriptions []string
+	FileNames              []string
+	FileDescriptions       []string
 	FileOpenPositionCounts []string
 }
 
@@ -58,8 +58,8 @@ func GetPositionMeta(dir string) (*PositionMeta, error) {
 		}
 	}
 	positionMetas := PositionMeta{
-		FileNames:        fileNames,
-		FileDescriptions: fileDescriptions,
+		FileNames:              fileNames,
+		FileDescriptions:       fileDescriptions,
 		FileOpenPositionCounts: fileOpenPositionCounts,
 	}
 	return &positionMetas, nil

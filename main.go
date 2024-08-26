@@ -39,18 +39,18 @@ const (
 )
 
 type Model struct {
-	cursor           int
-	ready            bool
-	viewport         viewport.Model
-	fileNames        []string
-	fileDescriptions []string
-	fileOpenPositionCounts       []string
-	currentView      viewState
-	selectedFileName string
-	fileContent      string
-	terminalHeight   int
-	help             help.Model
-	keys             keyMap
+	cursor                 int
+	ready                  bool
+	viewport               viewport.Model
+	fileNames              []string
+	fileDescriptions       []string
+	fileOpenPositionCounts []string
+	currentView            viewState
+	selectedFileName       string
+	fileContent            string
+	terminalHeight         int
+	help                   help.Model
+	keys                   keyMap
 }
 
 func (k keyMap) ShortHelp() []key.Binding {
@@ -120,12 +120,12 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	}
 
 	m := Model{
-		fileNames:        positionMeta.FileNames,
-		fileDescriptions: positionMeta.FileDescriptions,
+		fileNames:              positionMeta.FileNames,
+		fileDescriptions:       positionMeta.FileDescriptions,
 		fileOpenPositionCounts: positionMeta.FileOpenPositionCounts,
-		terminalHeight:   pty.Window.Height,
-		help:             help.New(),
-		keys:             keys,
+		terminalHeight:         pty.Window.Height,
+		help:                   help.New(),
+		keys:                   keys,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen(), tea.WithMouseCellMotion()}
 }
