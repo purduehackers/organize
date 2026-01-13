@@ -1,5 +1,5 @@
 Tell the story of Purdue Hackers to members, faculty, and sponsors.
-Count: 1
+Count: 2
 
 # About Purdue Hackers
 
@@ -9,7 +9,7 @@ Please read the `README.md` for more information if you haven't already.
 
 # About the role
 
-Purdue Hackers has gone through many eras over our 11-year lifespan, and has been radically transformed over the last two years. Our community has exploded—it's now the largest server under "Clubs" in the Purdue Discord student hub and the fourth-largest overall. Two years ago, the community had almost no activity; today, it has 2,000 weekly messages & 160 weekly active members, & a strong community identity.
+Purdue Hackers has gone through many eras over our 13-year lifespan, and has been radically transformed over the last two years. Our community has exploded—it's now the largest server under "Clubs" in the Purdue Discord student hub and the fourth-largest overall. Two years ago, the community had almost no activity; today, it has 2,000 weekly messages & 160 weekly active members, & a strong community identity.
 
 Hack Night is a symbol of our transformation: every Friday, 80 people show up to the Bechtel Center and hack on cool projects together—including an LED sign, Conway's Game of Life over SSH, [an alternative time system](https://blog.purduehackers.com/posts/lightning-time), a camera on a motor that tracks objects, and many others.
 
@@ -26,7 +26,6 @@ Nearly all of our storytelling thus far has been the work of one person. We're l
 - Write a monthly "VIP newsletter" that we send to current & prospective sponsors, Purdue faculty, and alumni, showing what Purdue Hackers has been working on
 - Draft announcements for upcoming events to be posted on Discord and Instagram
 - Solicit [blog posts](https://blog.purduehackers.com) from community members about their projects, aiming to publish one post per month
-- Send emails to professors, groups, and students to promote upcoming events
 
 This is a PR role, but different from what you may have seen before: while many student orgs stop their PR efforts at event promotion, Purdue Hackers also writes articles and newsletters to keep in touch with important people and document our work for future generations. As such, this role primarily consists of _lots_ of writing.
 
@@ -55,7 +54,7 @@ Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. So
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"storyteller fall 2024"** (not case-sensitive) in the subject line with the following:
+Send an email to phackers@purdue.edu including **"storyteller spring 2025"** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
@@ -75,6 +74,6 @@ After the call, you will receive a final follow-up within a week.
 
 ---
 
-For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in [our Discord](https://puhack.horse/discord). Hope to see you around 💛
+For questions, please email rayhan[at]purdue.edu or ask in `#lounge` in [our Discord](https://puhack.horse/discord). Hope to see you around 💛
 
 [Easier to read on GitHub?](https://github.com/purduehackers/organize/blob/main/directory/storyteller.md)

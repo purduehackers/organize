@@ -16,13 +16,13 @@ We typically don't recruit for roles other than what we're specifically looking 
 
 That said, we've previously recruited team members who didn't fit any of the roles we had open, and they've all been wonderful additions. So, if you've read all the previous roles and found that none resonate with you, we want to leave the door open for you too.
 
-Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give `designer.md` and `storyteller.md` another read and make sure you really feel none of them are a good fit for you.
+Please be aware that this is a risky position to apply for. We will prioritize the other positions and active community members over this role, which may never be filled. Before continuing, please give the other open positions another read and make sure you really feel none of them are a good fit for you.
 
 However, if you don’t hear back from us about this position, you won’t burn any bridges—you will still be strongly encouraged to come to Hack Night and help out wherever you see fit. You can also apply for other positions. So don’t let the above warning scare you off!
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"wildcard fall 2024"** (not case-sensitive) in the subject line with the following:
+Send an email to phackers@purdue.edu including **"wildcard spring 2025"** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
@@ -43,6 +43,6 @@ After the call, you will receive a final follow-up within a week.
 
 ---
 
-For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in [our Discord](https://puhack.horse/discord). Hope to see you around 💛
+For questions, please email rayhan[at]purdue.edu or ask in `#lounge` in [our Discord](https://puhack.horse/discord). Hope to see you around 💛
 
 [Easier to read on GitHub?](https://github.com/purduehackers/organize/blob/main/directory/wildcard.md)
