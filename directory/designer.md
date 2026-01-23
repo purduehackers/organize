@@ -1,5 +1,5 @@
 Design marketing materials & badges, and help build our brand identity.
-Count: 3
+Count: 2
 
 # About Purdue Hackers
 
@@ -42,7 +42,7 @@ Some organizers spend 5-10 hours per week; others spend 20-30 hours per week. So
 
 # How to apply
 
-Send an email to purduehackers@gmail.com including **"designer fall 2024”** (not case-sensitive) in the subject line with the following:
+Send an email to purduehackers@gmail.com including **"designer spring 2026”** (not case-sensitive) in the subject line with the following:
 
 - Tell us about yourself. Who are you, what are you studying, what are some of your hobbies, any other relevant things?
 - What resonates with you about Purdue Hackers?
@@ -54,6 +54,8 @@ Send an email to purduehackers@gmail.com including **"designer fall 2024”** (n
 
 The structure of the email is up to you, but please "be real"—we're students reading these too, and we're strongly anti-bullshit. Be authentically yourself!
 
+If you want to learn more about this role before applying, come to Hack Night (Fridays 8:00pm at Bechtel) and talk some of the people there! We have a couple of designers who go to Hack Night and can tell you more about what they've done :)
+
 ## Next steps
 
 We will reply to confirm we've received it; after that, you will only hear from us if we're interested in following up. There's no deadline on either end, and it's possible this position won't be filled for a while.
@@ -64,6 +66,6 @@ After the call, you will receive a response—acceptance or rejection—within a
 
 ---
 
-For questions, please email mstanciu[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around 💛
+For questions, please email zeng274[at]purdue.edu or ask in `#lounge` in our Discord. Hope to see you around!!!
 
 [Easier to read on GitHub?](https://github.com/purduehackers/organize/blob/main/directory/designer.md)
