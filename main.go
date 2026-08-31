@@ -42,6 +42,7 @@ type Model struct {
 	cursor                 int
 	ready                  bool
 	viewport               viewport.Model
+	listViewport           viewport.Model
 	fileNames              []string
 	fileDescriptions       []string
 	fileOpenPositionCounts []string
@@ -134,6 +135,21 @@ func (m Model) Init() tea.Cmd {
 	return nil
 }
 
+// refreshListView re-renders the position list and scrolls the viewport so the
+// selected item stays fully visible.
+func (m *Model) refreshListView() {
+	layout := components.OpenPositionsListView(m.listViewport.Width, m.fileNames, m.fileDescriptions, m.fileOpenPositionCounts, m.cursor)
+	m.listViewport.SetContent(layout.Content)
+
+	top := layout.ItemTops[m.cursor]
+	bottom := top + layout.ItemHeights[m.cursor]
+	if top < m.listViewport.YOffset {
+		m.listViewport.SetYOffset(top)
+	} else if bottom > m.listViewport.YOffset+m.listViewport.Height {
+		m.listViewport.SetYOffset(bottom - m.listViewport.Height)
+	}
+}
+
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
 		cmd  tea.Cmd
@@ -147,14 +163,22 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.Up):
 			if m.cursor > 0 && m.currentView == fileListView {
 				m.cursor--
+				m.refreshListView()
 			}
 		case key.Matches(msg, m.keys.Down):
 			if m.cursor < len(m.fileNames)-1 && m.currentView == fileListView {
 				m.cursor++
+				m.refreshListView()
 			}
 
 		case key.Matches(msg, m.keys.Top):
-			m.viewport.GotoTop()
+			if m.currentView == fileListView {
+				m.cursor = 0
+				m.refreshListView()
+				m.listViewport.GotoTop()
+			} else {
+				m.viewport.GotoTop()
+			}
 		case key.Matches(msg, m.keys.Enter):
 			if m.currentView == fileListView {
 				selectedFile := m.fileNames[m.cursor]
@@ -191,13 +215,26 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.viewport = viewport.New(msg.Width, msg.Height-verticalMarginHeight)
 			m.viewport.YPosition = headerHeight
 			m.viewport.HighPerformanceRendering = false
+			m.listViewport = viewport.New(msg.Width, utils.Max(1, msg.Height-1))
 			m.ready = true
 		} else {
 			m.viewport.Width = msg.Width
 			m.viewport.Height = msg.Height - verticalMarginHeight
+			m.listViewport.Width = msg.Width
+			m.listViewport.Height = utils.Max(1, msg.Height-1)
 		}
+		m.refreshListView()
 	}
-	m.viewport, cmd = m.viewport.Update(msg)
+
+	// Forward messages only to the visible viewport, and keep cursor keys out
+	// of the list viewport so they don't scroll it on top of moving the cursor.
+	if m.currentView == fileListView {
+		if _, isKey := msg.(tea.KeyMsg); !isKey {
+			m.listViewport, cmd = m.listViewport.Update(msg)
+		}
+	} else {
+		m.viewport, cmd = m.viewport.Update(msg)
+	}
 
 	cmds = append(cmds, cmd)
 
@@ -207,7 +244,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m Model) HeaderView() string {
 	title := components.HeaderStyle.Render(m.selectedFileName)
 	line := strings.Repeat(lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#fcd34d")).
+		Foreground(lipgloss.Color(components.ColorSecondary)).
 		Render("─"), utils.Max(0, m.viewport.Width-lipgloss.Width(title)))
 	return lipgloss.JoinHorizontal(lipgloss.Center, title, line)
 }
@@ -217,7 +254,7 @@ func (m Model) FooterView() string {
 
 	info := components.FooterStyle.Render(fmt.Sprintf("%3.f%%", m.viewport.ScrollPercent()*100))
 	line := strings.Repeat(lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#fcd34d")).
+		Foreground(lipgloss.Color(components.ColorSecondary)).
 		Render("─"), utils.Max(0, m.viewport.Width-lipgloss.Width(info)))
 	footerInfo := lipgloss.JoinHorizontal(lipgloss.Center, line, info)
 
@@ -226,12 +263,11 @@ func (m Model) FooterView() string {
 
 func (m Model) View() string {
 	if m.currentView == fileListView {
-		s := components.TextWithBackgroundView("#fcd34d", "ORGANIZE PURDUE HACKERS", true)
-		s += components.IntroDescriptionView(m.viewport.Width)
-		s += components.OpenPositionsGrid(m.viewport.Width, m.fileNames, m.fileDescriptions, m.fileOpenPositionCounts, m.cursor)
-		s += "\n"
-
-		return fmt.Sprint(s)
+		if !m.ready {
+			return "Loading..."
+		}
+		helpView := lipgloss.PlaceHorizontal(m.listViewport.Width, lipgloss.Right, m.help.View(m.keys))
+		return m.listViewport.View() + "\n" + helpView
 	} else {
 		return fmt.Sprintf("%s\n%s\n%s", m.HeaderView(), m.viewport.View(), m.FooterView())
 	}

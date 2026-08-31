@@ -1,12 +1,23 @@
 package components
 
 import (
-	"math"
+	"strings"
 
 	"github.com/charmbracelet/lipgloss"
 )
 
-func TextWithBackgroundView(backgroundColor string, text string, outerPadding bool) string {
+// Brand colors from purduehackers.com
+const (
+	ColorPrimary    = "#7d3bff" // purple
+	ColorSecondary  = "#ffee00" // yellow
+	ColorSecondaryL = "#ffb700" // amber
+	ColorAccent     = "#0084ff" // blue
+	ColorAccent2    = "#ff00cc" // magenta
+	ColorAccent3    = "#efb9ff" // light purple
+	ColorBg         = "#fffbf1" // cream
+)
+
+func TextWithBackgroundView(backgroundColor string, textColor string, text string, outerPadding bool) string {
 	outerContainerStyle := lipgloss.NewStyle()
 	if outerPadding {
 		outerContainerStyle = outerContainerStyle.Padding(1)
@@ -17,7 +28,7 @@ func TextWithBackgroundView(backgroundColor string, text string, outerPadding bo
 			Color(backgroundColor))
 	textStyle := lipgloss.NewStyle().
 		Bold(true).
-		Foreground(lipgloss.Color("#000000")).
+		Foreground(lipgloss.Color(textColor)).
 		Blink(true)
 
 	return outerContainerStyle.Render(innerContainerStyle.Render(textStyle.Render(text))) + "\n"
@@ -25,28 +36,35 @@ func TextWithBackgroundView(backgroundColor string, text string, outerPadding bo
 
 func IntroDescriptionView(width int) string {
 	return lipgloss.NewStyle().
-		Width(int(math.Round(float64(width)*0.6))).
+		Width(width).
 		Padding(0, 1).
-		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're looking for a few new organizers to join our team during the Fall 2024 semester.\n\nThe following positions are open as of August 2024.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
+		Render("Purdue Hackers is a group of students who help each other build creative technical projects. We're always looking for a few new organizers to join our team.\n\nThe following roles are open as of August 2026. Apply at https://phack.rs/apply.\n\nGet started at the README. Use arrow keys or vim keys to navigate & enter to select.") + "\n\n"
 }
 
 func PositionListItemView(maxWidth int, title string, description string, count string, selected bool) string {
+	// Width() excludes the border (2 cells); the inner padding is 2 per side.
+	const borderWidth, horizontalPadding = 2, 4
+	contentWidth := maxWidth - borderWidth - horizontalPadding
+	if contentWidth < 1 {
+		contentWidth = 1
+	}
+
 	titleTextStyle := lipgloss.NewStyle().
-		Foreground(lipgloss.Color("205")).
+		Foreground(lipgloss.Color(ColorAccent2)).
 		Bold(true)
 	containerStyle := lipgloss.NewStyle().
 		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(lipgloss.Color("63")).
-		Width(int(math.Round(float64(maxWidth) * 0.6)))
+		BorderForeground(lipgloss.Color(ColorPrimary)).
+		Width(maxWidth - borderWidth)
 	badgeStyle := lipgloss.NewStyle().
-		Background(lipgloss.Color("#fcd34d")).
+		Background(lipgloss.Color(ColorSecondaryL)).
 		Foreground(lipgloss.Color("#000")).
 		Padding(0, 1).
 		MarginLeft(1).
 		Bold(true)
 	if selected {
 		containerStyle = containerStyle.
-			BorderForeground(lipgloss.Color("#fcd34d"))
+			BorderForeground(lipgloss.Color(ColorSecondary))
 	}
 	innerContainerStyle := lipgloss.NewStyle().
 		PaddingLeft(2).
@@ -57,7 +75,7 @@ func PositionListItemView(maxWidth int, title string, description string, count 
 		badge := badgeStyle.Render(count)
 		titleContent += badge
 	}
-	descriptionTextContent := lipgloss.NewStyle().Render(description)
+	descriptionTextContent := lipgloss.NewStyle().Width(contentWidth).Render(description)
 	textContent := titleContent + "\n" + descriptionTextContent
 
 	innerContainerContent := innerContainerStyle.Render(textContent)
@@ -72,7 +90,7 @@ var (
 		b.Right = "├"
 		return lipgloss.NewStyle().
 			BorderStyle(b).
-			BorderForeground(lipgloss.Color("#fcd34d")).
+			BorderForeground(lipgloss.Color(ColorSecondary)).
 			Padding(0, 1).
 			Bold(true)
 	}()
@@ -84,23 +102,36 @@ var (
 	}()
 )
 
-func OpenPositionsGrid(width int, fileNames []string, fileDescriptions []string, fileOpenPositionCounts []string, cursor int) string {
-	var rows []string
-	var maxWidth = width
+// ListLayout is the rendered position list plus the line range each item
+// occupies within it, so the caller can scroll the selected item into view.
+type ListLayout struct {
+	Content     string
+	ItemTops    []int
+	ItemHeights []int
+}
 
-	readmeSelected := cursor == 0
-	styledReadme := PositionListItemView(maxWidth, fileNames[0], fileDescriptions[0], "0", readmeSelected) + "\n\n\n"
-	openPositions := TextWithBackgroundView("#C48FDC", "OPEN POSITIONS", false)
-	startHere := styledReadme + openPositions
-	rows = append(rows, startHere)
+func OpenPositionsListView(width int, fileNames []string, fileDescriptions []string, fileOpenPositionCounts []string, cursor int) ListLayout {
+	var b strings.Builder
+	tops := make([]int, len(fileNames))
+	heights := make([]int, len(fileNames))
 
-	for i := 1; i < len(fileNames); i++ {
-		var row string
-		selected := cursor == i
-		styledFileName := PositionListItemView(maxWidth, fileNames[i], fileDescriptions[i], fileOpenPositionCounts[i], selected)
-		row = lipgloss.JoinHorizontal(lipgloss.Top, row, styledFileName)
-		rows = append(rows, row)
+	writeItem := func(i int, block string) {
+		tops[i] = strings.Count(b.String(), "\n")
+		heights[i] = lipgloss.Height(block)
+		b.WriteString(block)
+		b.WriteString("\n")
 	}
 
-	return lipgloss.JoinVertical(lipgloss.Left, rows...)
+	b.WriteString(TextWithBackgroundView(ColorSecondary, "#000000", "ORGANIZE PURDUE HACKERS", true))
+	b.WriteString(IntroDescriptionView(width))
+
+	writeItem(0, PositionListItemView(width, fileNames[0], fileDescriptions[0], "0", cursor == 0))
+	b.WriteString("\n\n")
+	b.WriteString(TextWithBackgroundView(ColorPrimary, ColorBg, "OPEN POSITIONS", false))
+
+	for i := 1; i < len(fileNames); i++ {
+		writeItem(i, PositionListItemView(width, fileNames[i], fileDescriptions[i], fileOpenPositionCounts[i], cursor == i))
+	}
+
+	return ListLayout{Content: b.String(), ItemTops: tops, ItemHeights: heights}
 }
